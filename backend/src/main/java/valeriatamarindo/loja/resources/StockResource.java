@@ -18,38 +18,38 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import valeriatamarindo.loja.dto.CategoryDTO;
-import valeriatamarindo.loja.services.CategoryService;
+import valeriatamarindo.loja.dto.StockDTO;
+import valeriatamarindo.loja.services.StockService;
 
 @RestController
-@RequestMapping(value = "/categories")
-public class CategoryResource {
+@RequestMapping(value = "/stock")
+public class StockResource {
 
 	@Autowired
-	private CategoryService service;
+	private StockService service;
 
 	@GetMapping
-	public ResponseEntity<Page<CategoryDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
+	public ResponseEntity<Page<StockDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction,
 			@RequestParam(value = "orderBy", defaultValue = "name") String orderBy) {
 
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 
-		Page<CategoryDTO> list = service.findAllPaged(pageRequest);
+		Page<StockDTO> list = service.findAllPaged(pageRequest);
 
 		return ResponseEntity.ok().body(list);
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<CategoryDTO> findById(@PathVariable Long id) {
-		CategoryDTO dto = service.findById(id);
+	public ResponseEntity<StockDTO> findById(@PathVariable Long id) {
+		StockDTO dto = service.findById(id);
 		return ResponseEntity.ok().body(dto);
 
 	}
 
 	@PostMapping
-	public ResponseEntity<CategoryDTO> insert(@RequestBody CategoryDTO dto) {
+	public ResponseEntity<StockDTO> insert(@RequestBody StockDTO dto) {
 		dto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
 		return ResponseEntity.created(uri).body(dto);
@@ -57,14 +57,14 @@ public class CategoryResource {
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<CategoryDTO> insert(@PathVariable Long id, @RequestBody CategoryDTO dto) {
+	public ResponseEntity<StockDTO> insert(@PathVariable Long id, @RequestBody StockDTO dto) {
 		dto = service.update(id, dto);
 		return ResponseEntity.ok().body(dto);
 
 	}
 
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<CategoryDTO> delete(@PathVariable Long id) {
+	public ResponseEntity<StockDTO> delete(@PathVariable Long id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 
