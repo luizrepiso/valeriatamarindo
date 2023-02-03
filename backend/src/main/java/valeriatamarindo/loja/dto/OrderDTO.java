@@ -11,27 +11,27 @@ public class OrderDTO implements Serializable {
 	private Long id;
 	private Instant date;
 	private String status;
-	private Double price;
-	private Double sum;
+	private Double totalOrder;
+	private String typePayment;
 
 	public OrderDTO() {
 
 	}
 
-	public OrderDTO(Long id, Instant date, String status, Double price, Double sum) {
+	public OrderDTO(Long id, Instant date, String status, Double totalOrder, String typePayment) {
 		this.id = id;
 		this.date = date;
 		this.status = status;
-		this.price = price;
-		this.sum = sum;
+		this.totalOrder = totalOrder;
+		this.typePayment = typePayment;
 	}
 
 	public OrderDTO(Order entity) {
 		this.id = entity.getId();
 		this.date = entity.getDate();
 		this.status = entity.getStatus();
-		this.price = entity.getPrice();
-		this.sum = entity.getSum();
+		this.totalOrder = entity.getTotalOrder();
+		this.typePayment = entity.getTypePayment();
 
 	}
 
@@ -59,20 +59,20 @@ public class OrderDTO implements Serializable {
 		this.status = status;
 	}
 
-	public Double getPrice() {
-		return price;
+	public Double getTotalOrder() {
+		return totalOrder;
 	}
 
-	public void setPrice(Double price) {
-		this.price = price;
+	public void setTotalOrder(Double totalOrder) {
+		this.totalOrder = totalOrder;
 	}
 
-	public Double getSum() {
-		return sum;
+	public String getTypePayment() {
+		return typePayment;
 	}
 
-	public void setSum(Double sum) {
-		this.sum = sum;
+	public void setSum(String typePayment) {
+		this.typePayment = typePayment;
 	}
 
 }

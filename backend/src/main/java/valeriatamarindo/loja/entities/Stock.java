@@ -2,18 +2,13 @@ package valeriatamarindo.loja.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,74 +19,56 @@ public class Stock implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-		
-	private String payment;
-	private String status;
-	
+
+	private Long productId;
+
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant date;
 
-	@ManyToMany
-	@JoinTable(name = "tb_product_stock", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "stoky_id"))
+	private int quantity;
 
-	Set<Category> categories = new HashSet<>();
-
+	
 	public Stock() {
 
 	}
-	
-	
-	public Stock(Long id, String payment, String status, Instant date) {
-		this.id = id;
-		this.payment = payment;
-		this.status = status;
-		this.date = date;
-	}
 
+	public Stock(Long id, Long productId, Instant date, int quantity) {
+		this.id = id;
+		this.productId = productId;
+		this.date = date;
+		this.quantity = quantity;
+
+	}
 
 	public Long getId() {
 		return id;
 	}
 
-
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-
-	public String getPayment() {
-		return payment;
+	public Long getProductId() {
+		return productId;
 	}
 
-
-	public void setPayment(String payment) {
-		this.payment = payment;
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
-
-
-	public String getStatus() {
-		return status;
-	}
-
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
 
 	public Instant getDate() {
 		return date;
 	}
 
-
 	public void setDate(Instant date) {
 		this.date = date;
 	}
 
-
-	public Set<Category> getCategories() {
-		return categories;
+	public int getQuantity() {
+		return quantity;
 	}
+
+	
 
 	@Override
 	public int hashCode() {

@@ -2,18 +2,13 @@ package valeriatamarindo.loja.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,63 +19,50 @@ public class Order implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant date;
-	
+
 	private String status;
-	private Double price;
-	private Double sum; 
-
-	@ManyToMany
-	@JoinTable(name = "tb_product_tb_order", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "order_id"))
-
-	Set<Category> categories = new HashSet<>();
+	private Double totalOrder;
+	private String typePayment;
 
 	public Order() {
 
 	}
 
-	
-	public Order(Long id, Instant date, String status, Double price, Double sum,  Set<Category> categories) {
+	public Order(Long id, Instant date, String status, Double totalOrder, String typePayment) {
 		this.id = id;
 		this.date = date;
 		this.status = status;
-		this.price = price;
-		this.sum = sum;
-		this.categories = categories;
+		this.totalOrder = totalOrder;
+		this.typePayment = typePayment;
+		
 	}
-
 
 	public Long getId() {
 		return id;
 	}
 
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 
 	public String getStatus() {
 		return status;
 	}
 
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
 
-
-	public Double getPrice() {
-		return price;
+	public Double getTotalOrder() {
+		return totalOrder;
 	}
 
-
-	public void setPrice(Double price) {
-		this.price = price;
+	public void setTotalOrder(Double totalOrder) {
+		this.totalOrder = totalOrder;
 	}
-
 
 	public Instant getDate() {
 		return date;
@@ -89,17 +71,16 @@ public class Order implements Serializable {
 	public void setDate(Instant date) {
 		this.date = date;
 	}
-	public Double getSum() {
-		return sum;
+
+	public String getTypePayment() {
+		return typePayment;
 	}
 
-	public void setSum(Double sum) {
-		this.sum = sum;
+	public void setTypePayment(String typePayment) {
+		this.typePayment = typePayment;
 	}
 
-	public Set<Category> getCategories() {
-		return categories;
-	}
+	
 
 	@Override
 	public int hashCode() {

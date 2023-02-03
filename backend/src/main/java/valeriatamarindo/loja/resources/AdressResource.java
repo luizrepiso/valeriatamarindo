@@ -18,53 +18,54 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import valeriatamarindo.loja.dto.PaymentDTO;
-import valeriatamarindo.loja.services.PaymentService;
+import valeriatamarindo.loja.dto.AdressDTO;
+import valeriatamarindo.loja.services.AdressService;
 
 @RestController
-@RequestMapping(value = "/payment")
-public class PaymentResource {
+@RequestMapping(value = "/adress")
+public class AdressResource {
 
 	@Autowired
-	private PaymentService service;
+	private AdressService service;
 
 	@GetMapping
-	public ResponseEntity<Page<PaymentDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
+	public ResponseEntity<Page<AdressDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction,
-			@RequestParam(value = "orderBy", defaultValue = "name") String orderBy) {
+			@RequestParam(value = "orderBy", defaultValue = "street") String orderBy) {
 
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 
-		Page<PaymentDTO> list = service.findAllPaged(pageRequest);
+		Page<AdressDTO> list = service.findAllPaged(pageRequest);
 
 		return ResponseEntity.ok().body(list);
 	}
 
-	@GetMapping(value = "/{clientId}")
-	public ResponseEntity<PaymentDTO> findById(@PathVariable Long clientId) {
-		PaymentDTO dto = service.findById(clientId);
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<AdressDTO> findById(@PathVariable Long id) {
+		AdressDTO dto = service.findById(id);
 		return ResponseEntity.ok().body(dto);
 
 	}
 
 	@PostMapping
-	public ResponseEntity<PaymentDTO> insert(@RequestBody PaymentDTO dto) {
+	public ResponseEntity<AdressDTO> insert(@RequestBody AdressDTO dto) {
 		dto = service.insert(dto);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getStreet())
+				.toUri();
 		return ResponseEntity.created(uri).body(dto);
 
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<PaymentDTO> insert(@PathVariable Long id, @RequestBody PaymentDTO dto) {
+	public ResponseEntity<AdressDTO> insert(@PathVariable Long id, @RequestBody AdressDTO dto) {
 		dto = service.update(id, dto);
 		return ResponseEntity.ok().body(dto);
 
 	}
 
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<PaymentDTO> delete(@PathVariable Long id) {
+	public ResponseEntity<AdressDTO> delete(@PathVariable Long id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 

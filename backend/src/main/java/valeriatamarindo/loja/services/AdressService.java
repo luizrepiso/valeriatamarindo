@@ -12,48 +12,48 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import valeriatamarindo.loja.dto.PaymentDTO;
-import valeriatamarindo.loja.entities.Payment;
-import valeriatamarindo.loja.repositories.PaymentRepository;
+import valeriatamarindo.loja.dto.AdressDTO;
+import valeriatamarindo.loja.entities.Adress;
+import valeriatamarindo.loja.repositories.AdressRepository;
 import valeriatamarindo.loja.services.exceptions.DatabaseException;
 import valeriatamarindo.loja.services.exceptions.ResourceNotFoundException;
 
 @Service
-public class PaymentService {
+public class AdressService {
 
 	@Autowired
-	private PaymentRepository repository;
+	private AdressRepository repository;
 
 	@Transactional(readOnly = true)
-	public Page<PaymentDTO> findAllPaged(PageRequest pageRequest) {
-		Page<Payment> list = repository.findAll(pageRequest);
-		return list.map(x -> new PaymentDTO(x));
+	public Page<AdressDTO> findAllPaged(PageRequest pageRequest) {
+		Page<Adress> list = repository.findAll(pageRequest);
+		return list.map(x -> new AdressDTO(x));
 
 	}
 
 	@Transactional(readOnly = true)
-	public PaymentDTO findById(Long id) {
-		Optional<Payment> obj = repository.findById(id);
-		Payment entity = obj.orElseThrow(() -> new EntityNotFoundException("Entity not found"));
-		return new PaymentDTO(entity);
+	public AdressDTO findById(Long id) {
+		Optional<Adress> obj = repository.findById(id);
+		Adress entity = obj.orElseThrow(() -> new EntityNotFoundException("Entity not found"));
+		return new AdressDTO(entity);
 
 	}
 
 	@Transactional
-	public PaymentDTO insert(PaymentDTO dto) {
-		Payment entity = new Payment();
-		entity.setName(dto.getName());
+	public AdressDTO insert(AdressDTO dto) {
+		Adress entity = new Adress();
+		entity.setStreet(dto.getStreet());
 		entity = repository.save(entity);
-		return new PaymentDTO(entity);
+		return new AdressDTO(entity);
 	}
 
 	@Transactional
-	public PaymentDTO update(Long id, PaymentDTO dto) {
+	public AdressDTO update(Long id, AdressDTO dto) {
 		try {
-			Payment entity = repository.getOne(id);
-			entity.setName(dto.getName());
+			Adress entity = repository.getOne(id);
+			entity.setStreet(dto.getStreet());
 			entity = repository.save(entity);
-			return new PaymentDTO(entity);
+			return new AdressDTO(entity);
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException("Id not found" + id);
 		}

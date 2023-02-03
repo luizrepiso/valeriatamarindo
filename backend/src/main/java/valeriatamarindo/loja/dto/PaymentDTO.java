@@ -8,27 +8,38 @@ import valeriatamarindo.loja.entities.Payment;
 public class PaymentDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	private Long id;
 	private Long clientId;
 	private String name;
 	private Instant date;
-	private String formPayment;
+	private String type;
 
-	public PaymentDTO(Long clientId, String name, Instant date, String formPayment) {
+	public PaymentDTO() {
+	}
+
+	public PaymentDTO(Long id, Long clientId, String name, Instant date, String type) {
+		this.id = id;
 		this.clientId = clientId;
 		this.name = name;
 		this.date = date;
-		this.formPayment = formPayment;
+		this.type = type;
 	}
-	
+
 	public PaymentDTO(Payment entity) {
+		this.id = entity.getId();
 		this.clientId = entity.getClientId();
 		this.name = entity.getName();
 		this.date = entity.getDate();
-		this.formPayment = entity.getFormPayment();
-		
+		this.type = entity.getType();
 	}
-	
-	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Long getClientId() {
 		return clientId;
@@ -54,11 +65,12 @@ public class PaymentDTO implements Serializable {
 		this.date = date;
 	}
 
-	public String getFormPayment() {
-		return formPayment;
+	public String getType() {
+		return type;
 	}
 
-	public void setFormPayment(String formPayment) {
-		this.formPayment = formPayment;
+	public void setType(String type) {
+		this.type = type;
 	}
+
 }

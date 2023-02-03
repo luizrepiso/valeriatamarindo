@@ -6,6 +6,9 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -13,78 +16,72 @@ import javax.persistence.Table;
 public class Payment implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private Long clientId;
-	
+	private String name;
+		
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant date;
 	
-	private String name;
-	private String formPayment;
-	
+	private String type;
+
 	public Payment() {
 
 	}
-	
-	public Payment(Long clientId, Instant date, String name, String formPayment) {
+
+	public Payment(Long id, Long clientId, String name, Instant date, String type) {
+		this.id = id;
 		this.clientId = clientId;
 		this.date = date;
 		this.name = name;
-		this.formPayment = formPayment;
-		
+		this.type = type;
 	}
 
+	public Long getId() {
+		return id;
+	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Long getClientId() {
 		return clientId;
 	}
 
-
-
 	public void setClientId(Long clientId) {
 		this.clientId = clientId;
 	}
-
-
 
 	public Instant getDate() {
 		return date;
 	}
 
-
-
 	public void setDate(Instant date) {
 		this.date = date;
 	}
-
-
 
 	public String getName() {
 		return name;
 	}
 
-
-
 	public void setName(String name) {
 		this.name = name;
 	}
 
-
-
-	public String getFormPayment() {
-		return formPayment;
+	public String getType() {
+		return type;
 	}
 
-
-
-	public void setFormPayment(String formPayment) {
-		this.formPayment = formPayment;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(clientId);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -96,7 +93,7 @@ public class Payment implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Payment other = (Payment) obj;
-		return Objects.equals(clientId, other.clientId);
+		return Objects.equals(id, other.id);
 	}
 
 }

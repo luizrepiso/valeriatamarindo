@@ -54,3 +54,33 @@ INSERT INTO tb_product_category (product_id, category_id) VALUES (22, 3);
 INSERT INTO tb_product_category (product_id, category_id) VALUES (23, 3);
 INSERT INTO tb_product_category (product_id, category_id) VALUES (24, 3);
 INSERT INTO tb_product_category (product_id, category_id) VALUES (25, 3);
+
+INSERT INTO tb_adress(street, number, district) VALUES ('Rua tres', 10, 'Macaubas');
+INSERT INTO tb_adress(street, number, district) VALUES ('Rua dois', 10, 'Macaubas');
+INSERT INTO tb_adress(street, number, district) VALUES ('Rua Nono', 10, 'Macaubas');
+INSERT INTO tb_adress(street, number, district) VALUES ('Rua Nove', 10, 'Macaubas');
+INSERT INTO tb_adress(street, number, district) VALUES ('Rua Frans', 10, 'Macaubas');
+
+INSERT INTO tb_client(name, cpf, phone) VALUES ('Joana das Dores', '123.256.852-33','(17) 999907777');
+INSERT INTO tb_client(name, cpf, phone) VALUES ('Armando Guerra', '256.777.852-33','(17) 999906666');
+INSERT INTO tb_client(name, cpf, phone) VALUES ('Antony Marin', '555.858.852-33','(17) 999905555');
+INSERT INTO tb_client(name, cpf, phone) VALUES ('Odecio Braço', '123.256.852-33','(17) 999907777');
+INSERT INTO tb_client(name, cpf, phone) VALUES ('Osmar Telo', '123.256.852-33','(17) 999907777');
+
+INSERT INTO tb_order(date, status, total_Order, type_Payment) VALUES (TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 'vendida', 600.0, 'cartão');
+INSERT INTO tb_order(date, status, total_Order, type_Payment) VALUES (TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 'em estoque', 600.0, 'cartão');
+INSERT INTO tb_order(date, status, total_Order, type_Payment) VALUES (TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 'em estoque', 150.0, 'dinheiro');
+INSERT INTO tb_order(date, status, total_Order, type_Payment) VALUES (TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 'vendida', 600.0, 'fiado');
+INSERT INTO tb_order(date, status, total_Order, type_Payment) VALUES (TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 'vendida', 600.0, 'cartão');
+
+INSERT INTO tb_payment(client_id, name, type, date) VALUES (55,'Joana das Dores', 'cartão',TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z');
+INSERT INTO tb_payment(client_id, name, type, date) VALUES (55,'Armando Guerra', 'cartão',TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z');
+INSERT INTO tb_payment(client_id, name, type, date) VALUES (55,'Antony Marin', 'cartão',TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z');
+INSERT INTO tb_payment(client_id, name, type, date) VALUES (55,'Odecio Braço', 'cartão',TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z');
+INSERT INTO tb_payment(client_id, name, type, date) VALUES (55,'Osmar Telo', 'cartão',TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z');
+
+INSERT INTO tb_stock(date, product_id, quantity) VALUES (TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 25, 20);
+INSERT INTO tb_stock(date, product_id, quantity) VALUES (TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 15, 10);
+INSERT INTO tb_stock(date, product_id, quantity) VALUES (TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 35, 40);
+INSERT INTO tb_stock(date, product_id, quantity) VALUES (TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 45, 30);
+INSERT INTO tb_stock(date, product_id, quantity) VALUES (TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 55, 08);

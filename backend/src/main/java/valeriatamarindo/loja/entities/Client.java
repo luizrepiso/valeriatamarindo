@@ -1,12 +1,10 @@
 package valeriatamarindo.loja.entities;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,33 +23,25 @@ public class Client implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	private String cpf;
+	private String phone;
+
 	
-	private Double cpf;
-	private String adress;
-	private Double phone;
-
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private Instant date;
-
 	@ManyToMany
-	@JoinTable(name = "tb_product_client", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "client_id"))
+	@JoinTable(name = "tb_client_tb_order", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "order_id"))
 
-	Set<Category> categories = new HashSet<>();
+	Set<Client> client = new HashSet<>();
 
 	public Client() {
 
 	}
-
 	
-	public Client(Long id, String name, Double cpf, String adress, Double phone, Instant date) {
+	public Client(Long id, String name, String cpf, String phone) {
 		this.id = id;
 		this.name = name;
-		this.cpf = cpf;
-		this.adress = adress;
+		this.cpf = cpf;		
 		this.phone = phone;
-		this.date = date;
 	}
-
 
 	public Long getId() {
 		return id;
@@ -73,48 +63,26 @@ public class Client implements Serializable {
 	}
 
 
-	public Double getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
 
-	public void setCpf(Double cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
-
-	public String getAdress() {
-		return adress;
-	}
-
-
-	public void setAdress(String adress) {
-		this.adress = adress;
-	}
-
-
-	public Double getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 
 
-	public void setPhone(Double phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
-
-	public Instant getDate() {
-		return date;
-	}
-
-
-	public void setDate(Instant date) {
-		this.date = date;
-	}
-
-
-	public Set<Category> getCategories() {
-		return categories;
+	public Set<Client> getClient() {
+		return client;
 	}
 
 	@Override

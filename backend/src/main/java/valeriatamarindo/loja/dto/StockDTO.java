@@ -9,27 +9,26 @@ public class StockDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-	private String payment;
+	private Long productId;
 	private Instant date;
-	private String status;
+	private Integer quantity;
 
 	public StockDTO() {
 
 	}
 
-	public StockDTO(Long id, String payment, Instant date, String status) {
+	public StockDTO(Long id, Long productId, Instant date, Integer quantity) {
 		this.id = id;
-		this.payment = payment;
+		this.productId = productId;
 		this.date = date;
-		this.status = status;
+		this.quantity = quantity;
 	}
-	
-	public StockDTO (Stock entity) {
+
+	public StockDTO(Stock entity) {
 		this.id = entity.getId();
-		this.payment = entity.getPayment();
+		this.productId = entity.getProductId();
 		this.date = entity.getDate();
-		this.status = entity.getStatus();
-		
+		this.quantity = entity.getQuantity();
 	}
 
 	public Long getId() {
@@ -40,12 +39,12 @@ public class StockDTO implements Serializable {
 		this.id = id;
 	}
 
-	public String getPayment() {
-		return payment;
+	public Long getProductId() {
+		return productId;
 	}
 
-	public void setPayment(String payment) {
-		this.payment = payment;
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 
 	public Instant getDate() {
@@ -56,11 +55,12 @@ public class StockDTO implements Serializable {
 		this.date = date;
 	}
 
-	public String getStatus() {
-		return status;
+	public Integer getQuantity() {
+		return quantity;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
+
 }
