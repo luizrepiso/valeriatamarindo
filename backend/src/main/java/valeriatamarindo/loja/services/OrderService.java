@@ -42,7 +42,7 @@ public class OrderService {
 	@Transactional
 	public OrderDTO insert(OrderDTO dto) {
 		Order entity = new Order();
-		entity.setId(dto.getId());
+		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
 		return new OrderDTO(entity);
 	}
@@ -51,13 +51,14 @@ public class OrderService {
 	public OrderDTO update(Long id, OrderDTO dto) {
 		try {
 			Order entity = repository.getOne(id);
-			entity.setId(dto.getId());
+			copyDtoToEntity(dto, entity);
 			entity = repository.save(entity);
 			return new OrderDTO(entity);
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException("Id not found" + id);
 		}
 	}
+
 
 	public void delete(Long id) {
 		try {
@@ -68,6 +69,16 @@ public class OrderService {
 			throw new DatabaseException("Integrity violation");
 		}
 
+	}
+	
+
+	private void copyDtoToEntity(OrderDTO dto, Order entity) {
+		
+		entity.setDate(dto.getDate());
+		entity.setStatus(dto.getStatus());
+		entity.setTotalOrder(dto.getTotalOrder());
+		entity.setTypePayment(dto.getTypePayment());
+		
 	}
 
 }

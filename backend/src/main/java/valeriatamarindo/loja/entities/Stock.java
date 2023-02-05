@@ -2,13 +2,18 @@ package valeriatamarindo.loja.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -25,14 +30,17 @@ public class Stock implements Serializable {
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant date;
 
-	private int quantity;
+	private Integer quantity;
 
-	
+	@ManyToMany
+	@JoinTable(name = "tb_stock_product", joinColumns = @JoinColumn(name = "stock_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+	Set<Product> product = new HashSet<>();
+
 	public Stock() {
 
 	}
 
-	public Stock(Long id, Long productId, Instant date, int quantity) {
+	public Stock(Long id, Long productId, Instant date, Integer quantity) {
 		this.id = id;
 		this.productId = productId;
 		this.date = date;
@@ -64,11 +72,17 @@ public class Stock implements Serializable {
 		this.date = date;
 	}
 
-	public int getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
-	
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	public Set<Product> getProduct() {
+		return product;
+	}
 
 	@Override
 	public int hashCode() {

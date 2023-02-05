@@ -42,7 +42,7 @@ public class PaymentService {
 	@Transactional
 	public PaymentDTO insert(PaymentDTO dto) {
 		Payment entity = new Payment();
-		entity.setName(dto.getName());
+		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
 		return new PaymentDTO(entity);
 	}
@@ -51,7 +51,7 @@ public class PaymentService {
 	public PaymentDTO update(Long id, PaymentDTO dto) {
 		try {
 			Payment entity = repository.getOne(id);
-			entity.setName(dto.getName());
+			copyDtoToEntity(dto, entity);
 			entity = repository.save(entity);
 			return new PaymentDTO(entity);
 		} catch (EntityNotFoundException e) {
@@ -70,4 +70,11 @@ public class PaymentService {
 
 	}
 
+	private void copyDtoToEntity(PaymentDTO dto, Payment entity) {
+		entity.setClientId(dto.getClientId());
+		entity.setName(dto.getName());
+		entity.setDate(dto.getDate());
+		entity.setType(dto.getType());
+
+	}
 }

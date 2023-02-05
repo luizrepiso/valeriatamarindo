@@ -1,12 +1,17 @@
 package valeriatamarindo.loja.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +27,7 @@ public class Adress implements Serializable {
 	private String number;
 	private String district;
 	
+		
 	public Adress() {
 		
 	}
@@ -65,6 +71,7 @@ public class Adress implements Serializable {
 	public void setDistrict(String district) {
 		this.district = district;
 	}
+	
 
 	@Override
 	public int hashCode() {

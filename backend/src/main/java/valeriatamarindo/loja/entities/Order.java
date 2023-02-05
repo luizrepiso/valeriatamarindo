@@ -2,13 +2,18 @@ package valeriatamarindo.loja.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -26,7 +31,17 @@ public class Order implements Serializable {
 	private String status;
 	private Double totalOrder;
 	private String typePayment;
-
+	
+	@ManyToMany
+	@JoinTable(name = "tb_order_product", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+	Set<Product> product = new HashSet<>();
+	
+	@ManyToMany
+	@JoinTable(name = "tb_order_payment", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "payment_id"))
+	Set<Payment> payment = new HashSet<>();
+	
+	
+	
 	public Order() {
 
 	}
@@ -79,9 +94,15 @@ public class Order implements Serializable {
 	public void setTypePayment(String typePayment) {
 		this.typePayment = typePayment;
 	}
-
 	
-
+	public Set<Product> getProduct() {
+		return product;
+	}
+	
+	public Set<Payment> getPayment() {
+		return payment;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

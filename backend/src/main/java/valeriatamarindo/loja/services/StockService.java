@@ -42,7 +42,7 @@ public class StockService {
 	@Transactional
 	public StockDTO insert(StockDTO dto) {
 		Stock entity = new Stock();
-		entity.setId(dto.getId());
+		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
 		return new StockDTO(entity);
 	}
@@ -51,7 +51,7 @@ public class StockService {
 	public StockDTO update(Long id, StockDTO dto) {
 		try {
 			Stock entity = repository.getOne(id);
-			entity.setId(dto.getId());
+			copyDtoToEntity(dto, entity);
 			entity = repository.save(entity);
 			return new StockDTO(entity);
 		} catch (EntityNotFoundException e) {
@@ -67,6 +67,14 @@ public class StockService {
 		} catch (DataIntegrityViolationException e) {
 			throw new DatabaseException("Integrity violation");
 		}
+
+	}
+
+	private void copyDtoToEntity(StockDTO dto, Stock entity) {
+		
+		entity.setProductId(dto.getProductId());
+		entity.setDate(dto.getDate());
+		entity.setQuantity(dto.getQuantity());
 
 	}
 

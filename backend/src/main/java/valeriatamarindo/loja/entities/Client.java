@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tb_client")
@@ -23,13 +24,20 @@ public class Client implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	
+	@NotNull(message = "CPF não pode ser nulo")
 	private String cpf;
+	
 	private String phone;
 
 	
 	@ManyToMany
 	@JoinTable(name = "tb_client_tb_order", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "order_id"))
 
+	Set<Order> order = new HashSet<>();
+	
+	@ManyToMany
+	@JoinTable(name = "tb_client_adress", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "adress_id"))
 	Set<Client> client = new HashSet<>();
 
 	public Client() {
@@ -81,9 +89,15 @@ public class Client implements Serializable {
 		this.phone = phone;
 	}
 
+	public Set<Order> getOrder() {
+		return order;
+	}
+	
+
 	public Set<Client> getClient() {
 		return client;
 	}
+
 
 	@Override
 	public int hashCode() {

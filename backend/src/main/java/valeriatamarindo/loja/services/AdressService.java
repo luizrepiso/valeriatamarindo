@@ -42,7 +42,7 @@ public class AdressService {
 	@Transactional
 	public AdressDTO insert(AdressDTO dto) {
 		Adress entity = new Adress();
-		entity.setStreet(dto.getStreet());
+		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
 		return new AdressDTO(entity);
 	}
@@ -52,12 +52,14 @@ public class AdressService {
 		try {
 			Adress entity = repository.getOne(id);
 			entity.setStreet(dto.getStreet());
-			entity = repository.save(entity);
+			copyDtoToEntity(dto, entity);
 			return new AdressDTO(entity);
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException("Id not found" + id);
 		}
 	}
+
+	
 
 	public void delete(Long id) {
 		try {
@@ -68,6 +70,13 @@ public class AdressService {
 			throw new DatabaseException("Integrity violation");
 		}
 
+	}
+	private void copyDtoToEntity(AdressDTO dto, Adress entity) {
+		
+		entity.setStreet(dto.getStreet());
+		entity.setNumber(dto.getNumber());
+		entity.setDistrict(dto.getDistrict());
+		
 	}
 
 }
