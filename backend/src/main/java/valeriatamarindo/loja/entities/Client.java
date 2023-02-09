@@ -9,9 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -29,16 +27,12 @@ public class Client implements Serializable {
 	private String cpf;
 	
 	private String phone;
-
 	
-	@ManyToMany
-	@JoinTable(name = "tb_client_tb_order", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "order_id"))
-
+	@OneToMany(mappedBy = "client")
 	Set<Order> order = new HashSet<>();
 	
-	@ManyToMany
-	@JoinTable(name = "tb_client_adress", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "adress_id"))
-	Set<Client> client = new HashSet<>();
+	@OneToMany(mappedBy = "client")
+	Set<Adress> adress = new HashSet<>();
 
 	public Client() {
 
@@ -94,8 +88,8 @@ public class Client implements Serializable {
 	}
 	
 
-	public Set<Client> getClient() {
-		return client;
+	public Set<Adress> getAdress() {
+		return adress;
 	}
 
 

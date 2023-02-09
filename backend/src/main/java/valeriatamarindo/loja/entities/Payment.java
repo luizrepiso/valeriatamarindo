@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,11 +21,13 @@ public class Payment implements Serializable {
 	private Long id;
 	private Long clientId;
 	private String name;
-		
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+
 	private Instant date;
-	
+
 	private String type;
+
+	@ManyToOne
+	private Order order;
 
 	public Payment() {
 
@@ -77,6 +79,14 @@ public class Payment implements Serializable {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 
 	@Override

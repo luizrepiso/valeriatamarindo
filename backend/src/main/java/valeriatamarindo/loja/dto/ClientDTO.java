@@ -2,7 +2,6 @@ package valeriatamarindo.loja.dto;
 
 import java.io.Serializable;
 
-import valeriatamarindo.loja.entities.Adress;
 import valeriatamarindo.loja.entities.Client;
 
 public class ClientDTO implements Serializable {
@@ -12,8 +11,6 @@ public class ClientDTO implements Serializable {
 	private String name;
 	private String cpf;
 	private String phone;
-
-	public Adress getAdressDto;
 
 	public ClientDTO() {
 

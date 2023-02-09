@@ -6,14 +6,12 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -25,22 +23,20 @@ public class Order implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant date;
 
 	private String status;
 	private Double totalOrder;
 	private String typePayment;
 	
-	@ManyToMany
-	@JoinTable(name = "tb_order_product", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
-	Set<Product> product = new HashSet<>();
+	@OneToMany(mappedBy = "order")
+    Set<Product> product = new HashSet<>();
 	
-	@ManyToMany
-	@JoinTable(name = "tb_order_payment", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "payment_id"))
+	@OneToMany(mappedBy = "order") 
 	Set<Payment> payment = new HashSet<>();
 	
-	
+	 @ManyToOne
+	 private Client client;
 	
 	public Order() {
 
@@ -95,14 +91,22 @@ public class Order implements Serializable {
 		this.typePayment = typePayment;
 	}
 	
-	public Set<Product> getProduct() {
-		return product;
-	}
-	
+//	public Set<Product> getProduct() {
+//		return product;
+//	}
+//	
 	public Set<Payment> getPayment() {
 		return payment;
 	}
-	
+		
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

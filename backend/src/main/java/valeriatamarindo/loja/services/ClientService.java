@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import valeriatamarindo.loja.dto.ClientDTO;
-import valeriatamarindo.loja.entities.Adress;
 import valeriatamarindo.loja.entities.Client;
 import valeriatamarindo.loja.repositories.ClientRepository;
 import valeriatamarindo.loja.services.exceptions.DatabaseException;
@@ -43,7 +42,6 @@ public class ClientService {
 	@Transactional
 	public ClientDTO insert(ClientDTO dto) {
 		Client entity = new Client();
-		Adress service = (dto.getAdressDto);
 		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
 		return new ClientDTO(entity);
@@ -76,7 +74,7 @@ public class ClientService {
 
 		entity.setName(dto.getName());
 		entity.setCpf(dto.getCpf());
-		entity.setPhone(dto.getCpf());
+		entity.setPhone(dto.getPhone());
 
 	}
 

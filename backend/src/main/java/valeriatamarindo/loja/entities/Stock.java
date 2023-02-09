@@ -6,14 +6,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -25,24 +22,20 @@ public class Stock implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private Long productId;
 
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant date;
 
 	private Integer quantity;
 
-	@ManyToMany
-	@JoinTable(name = "tb_stock_product", joinColumns = @JoinColumn(name = "stock_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
-	Set<Product> product = new HashSet<>();
+//	@OneToMany(mappedBy = "stock")
+//	Set<Product> product = new HashSet<>();
 
 	public Stock() {
 
 	}
 
-	public Stock(Long id, Long productId, Instant date, Integer quantity) {
+	public Stock(Long id, Instant date, Integer quantity) {
 		this.id = id;
-		this.productId = productId;
 		this.date = date;
 		this.quantity = quantity;
 
@@ -56,14 +49,7 @@ public class Stock implements Serializable {
 		this.id = id;
 	}
 
-	public Long getProductId() {
-		return productId;
-	}
-
-	public void setProductId(Long productId) {
-		this.productId = productId;
-	}
-
+	
 	public Instant getDate() {
 		return date;
 	}
@@ -80,9 +66,9 @@ public class Stock implements Serializable {
 		this.quantity = quantity;
 	}
 
-	public Set<Product> getProduct() {
-		return product;
-	}
+//	public Set<Product> getProduct() {
+//		return product;
+//	}
 
 	@Override
 	public int hashCode() {

@@ -2,13 +2,15 @@ package valeriatamarindo.loja.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -22,20 +24,24 @@ public class Category implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String name;
-
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	
 	private Instant createdAt;
 
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant updateAt;
+
+	@ManyToMany(mappedBy = "categories")
+	private Set<Product> product = new HashSet<>();
 
 	public Category() {
 
 	}
-
-	public Category(long id, String name) {
+	
+	public Category(long id, String name, Instant createdAt, Instant updateAt) {
 		this.id = id;
 		this.name = name;
+		this.createdAt = createdAt;
+		this.updateAt = updateAt;
+		
 	}
 
 	public long getId() {
@@ -60,6 +66,10 @@ public class Category implements Serializable {
 
 	public Instant getUpdateAt() {
 		return updateAt;
+	}
+
+	public Set<Product> getProduct() {
+		return product;
 	}
 
 	@PrePersist

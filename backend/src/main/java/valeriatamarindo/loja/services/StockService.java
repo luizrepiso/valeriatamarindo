@@ -71,8 +71,7 @@ public class StockService {
 	}
 
 	private void copyDtoToEntity(StockDTO dto, Stock entity) {
-		
-		entity.setProductId(dto.getProductId());
+
 		entity.setDate(dto.getDate());
 		entity.setQuantity(dto.getQuantity());
 
