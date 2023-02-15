@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -38,12 +37,13 @@ public class Product implements Serializable {
 	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	Set<Category> categories = new HashSet<>();
 
-	@ManyToOne
-	private Order order;
+	@ManyToMany(mappedBy = "product")
+	private Set<Order> order = new HashSet<>();
 	
-//	@ManyToOne
-//	@JoinColumn(name = "product", insertable = false, updatable = false)
-//	private Stock stock;
+	@ManyToMany(mappedBy = "product")
+	private Set<Stock> stock = new HashSet<>();
+
+
 
 	public Product() {
 
@@ -110,25 +110,13 @@ public class Product implements Serializable {
 		return categories;
 	}
 
-	public Order getOrder() {
+	public Set<Order> getOrder() {
 		return order;
 	}
 
-	public void setOrder(Order order) {
-		this.order = order;
+	public Set<Stock> getStock() {
+		return stock;
 	}
-	
-//	public Stock getStock() {
-//		return stock;
-//	}
-//
-//	public void setStock(Stock stock) {
-//		this.stock = stock;
-//	}
-
-//	public void setCategories(Set<Category> categories) {
-//		this.categories = categories;
-//	}
 
 	@Override
 	public int hashCode() {

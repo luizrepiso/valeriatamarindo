@@ -2,13 +2,15 @@ package valeriatamarindo.loja.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -26,8 +28,9 @@ public class Payment implements Serializable {
 
 	private String type;
 
-	@ManyToOne
-	private Order order;
+	@ManyToMany(mappedBy = "payment")
+	private Set<Order> order = new HashSet<>();
+
 
 	public Payment() {
 
@@ -81,12 +84,9 @@ public class Payment implements Serializable {
 		this.type = type;
 	}
 
-	public Order getOrder() {
-		return order;
-	}
 
-	public void setOrder(Order order) {
-		this.order = order;
+	public Set<Order> getOrder() {
+		return order;
 	}
 
 	@Override

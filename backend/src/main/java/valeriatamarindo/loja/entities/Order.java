@@ -10,8 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -29,15 +31,18 @@ public class Order implements Serializable {
 	private Double totalOrder;
 	private String typePayment;
 	
-	@OneToMany(mappedBy = "order")
-    Set<Product> product = new HashSet<>();
-	
-	@OneToMany(mappedBy = "order") 
+	@ManyToMany
+	@JoinTable(name = "tb_order_payment", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "payment_id"))
 	Set<Payment> payment = new HashSet<>();
 	
-	 @ManyToOne
-	 private Client client;
+	@ManyToMany
+	@JoinTable(name = "tb_order_product", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+	Set<Product> product = new HashSet<>();
 	
+	@ManyToOne
+	@JoinColumn(name = "client_id")
+	private Client client;	
+
 	public Order() {
 
 	}
@@ -91,20 +96,18 @@ public class Order implements Serializable {
 		this.typePayment = typePayment;
 	}
 	
-//	public Set<Product> getProduct() {
-//		return product;
-//	}
-//	
+	public Set<Product> getProduct() {
+		return product;
+	}
+	
 	public Set<Payment> getPayment() {
 		return payment;
 	}
-		
+
+	
+
 	public Client getClient() {
 		return client;
-	}
-
-	public void setClient(Client client) {
-		this.client = client;
 	}
 
 	@Override

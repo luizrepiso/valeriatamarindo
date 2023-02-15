@@ -9,6 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -28,11 +31,14 @@ public class Client implements Serializable {
 	
 	private String phone;
 	
-	@OneToMany(mappedBy = "client")
-	Set<Order> order = new HashSet<>();
+	@OneToMany
+	@JoinColumn(name = "client_id")
+	private Set<Order> order = new HashSet<>();
 	
-	@OneToMany(mappedBy = "client")
+	@ManyToMany
+	@JoinTable(name = "tb_client_adress", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "adress_id"))
 	Set<Adress> adress = new HashSet<>();
+	
 
 	public Client() {
 
@@ -87,11 +93,9 @@ public class Client implements Serializable {
 		return order;
 	}
 	
-
 	public Set<Adress> getAdress() {
 		return adress;
 	}
-
 
 	@Override
 	public int hashCode() {

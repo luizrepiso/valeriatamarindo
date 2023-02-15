@@ -10,7 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,9 +29,11 @@ public class Stock implements Serializable {
 
 	private Integer quantity;
 
-//	@OneToMany(mappedBy = "stock")
-//	Set<Product> product = new HashSet<>();
-
+	@ManyToMany
+	@JoinTable(name = "tb_stock_product", joinColumns = @JoinColumn(name = "stock_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+	Set<Product> product = new HashSet<>();
+	
+	
 	public Stock() {
 
 	}
@@ -66,9 +70,9 @@ public class Stock implements Serializable {
 		this.quantity = quantity;
 	}
 
-//	public Set<Product> getProduct() {
-//		return product;
-//	}
+	public Set<Product> getProduct() {
+		return product;
+	}
 
 	@Override
 	public int hashCode() {
