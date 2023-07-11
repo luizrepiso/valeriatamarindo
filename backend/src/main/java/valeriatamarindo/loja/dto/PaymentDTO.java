@@ -2,75 +2,96 @@ package valeriatamarindo.loja.dto;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import valeriatamarindo.loja.entities.Payment;
+import valeriatamarindo.loja.entities.PaymentItem;
 
 public class PaymentDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-	private Long clientId;
-	private String name;
 	private Instant date;
-	private String type;
+	private Double Installments;
+	private Double totalAmount;
+	
+	private List<PaymentItemDTO> paymentItem = new ArrayList<>();
 
 	public PaymentDTO() {
-	}
+	}	
 
-	public PaymentDTO(Long id, Long clientId, String name, Instant date, String type) {
+	public PaymentDTO(Long id, Long client, Instant date, Double installments, Double totalAmount, Long order) {
 		this.id = id;
-		this.clientId = clientId;
-		this.name = name;
 		this.date = date;
-		this.type = type;
+		this.Installments = installments;
+		this.totalAmount = totalAmount;
 	}
-
+	
 	public PaymentDTO(Payment entity) {
 		this.id = entity.getId();
-		this.clientId = entity.getClientId();
-		this.name = entity.getName();
 		this.date = entity.getDate();
-		this.type = entity.getType();
+		this.Installments = entity.getInstallments();
+		this.totalAmount = entity.getTotalAmount();
+				
+		}
+	
+	public PaymentDTO(Payment entity, Set<PaymentItem> paymentItem) {
+		this(entity);
+		paymentItem.forEach(pay -> this.paymentItem.add(new PaymentItemDTO(pay)));
 	}
+
 
 	public Long getId() {
 		return id;
 	}
 
+
+
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Long getClientId() {
-		return clientId;
-	}
 
-	public void setClientId(Long clientId) {
-		this.clientId = clientId;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public Instant getDate() {
 		return date;
 	}
 
+
+
 	public void setDate(Instant date) {
 		this.date = date;
 	}
 
-	public String getType() {
-		return type;
+
+
+	public Double getInstallments() {
+		return Installments;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+
+
+	public void setInstallments(Double installments) {
+		Installments = installments;
 	}
+	
+
+	public Double getTotalAmount() {
+		return totalAmount;
+	}
+
+
+
+	public void setTotalAmount(Double totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	public List<PaymentItemDTO> getPaymentItem() {
+		return paymentItem;
+	}
+	
+	
 
 }

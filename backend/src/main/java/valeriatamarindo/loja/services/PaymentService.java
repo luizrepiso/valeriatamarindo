@@ -20,6 +20,9 @@ import valeriatamarindo.loja.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class PaymentService {
+	
+	@Autowired
+	private PaymentItemService paymentItemService;
 
 	@Autowired
 	private PaymentRepository repository;
@@ -42,6 +45,7 @@ public class PaymentService {
 	@Transactional
 	public PaymentDTO insert(PaymentDTO dto) {
 		Payment entity = new Payment();
+		dto.setTotalAmount(paymentItemService.sumInstallments(dto.getPaymentItem())); 
 		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
 		return new PaymentDTO(entity);
@@ -71,10 +75,10 @@ public class PaymentService {
 	}
 
 	private void copyDtoToEntity(PaymentDTO dto, Payment entity) {
-		entity.setClientId(dto.getClientId());
-		entity.setName(dto.getName());
 		entity.setDate(dto.getDate());
-		entity.setType(dto.getType());
+		entity.setInstallments(dto.getInstallments());
+		entity.setTotalAmount(dto.getTotalAmount());
 
 	}
+
 }

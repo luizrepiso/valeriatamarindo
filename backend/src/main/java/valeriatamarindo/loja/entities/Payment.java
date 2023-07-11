@@ -2,46 +2,49 @@ package valeriatamarindo.loja.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_payment")
+@Table(name = "payment")
 public class Payment implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Long clientId;
-	private String name;
 
 	private Instant date;
+	private Double installments;
+	private Double totalAmount;
 
-	private String type;
+	@ManyToOne
+	@JoinColumn(name = "order_id")
+	private Order order;
 
-	@ManyToMany(mappedBy = "payment")
-	private Set<Order> order = new HashSet<>();
-
+	@ManyToOne
+	@JoinColumn(name = "client_id")
+	private Client client;
 
 	public Payment() {
 
 	}
 
-	public Payment(Long id, Long clientId, String name, Instant date, String type) {
+	public Payment(Long id, Instant date, Double installments, Double totalAmount,  Order order, Client client) {
+
 		this.id = id;
-		this.clientId = clientId;
 		this.date = date;
-		this.name = name;
-		this.type = type;
+		this.installments = installments;
+		this.order = order;
+		this.client = client;
+		this.totalAmount = totalAmount;
 	}
 
 	public Long getId() {
@@ -52,14 +55,6 @@ public class Payment implements Serializable {
 		this.id = id;
 	}
 
-	public Long getClientId() {
-		return clientId;
-	}
-
-	public void setClientId(Long clientId) {
-		this.clientId = clientId;
-	}
-
 	public Instant getDate() {
 		return date;
 	}
@@ -68,27 +63,40 @@ public class Payment implements Serializable {
 		this.date = date;
 	}
 
-	public String getName() {
-		return name;
+	public Double getInstallments() {
+		return installments;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setInstallments(Double installments) {
+		this.installments = installments;
 	}
 
-	public String getType() {
-		return type;
+	public Double getTotalAmount() {
+		return totalAmount;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setTotalAmount(Double totalAmount) {
+		this.totalAmount = totalAmount;
+
+	}
+	
+	public Client getClient() {
+		return client;
 	}
 
+	public void setClient(Client client) {
+		this.client = client;
+	}
 
-	public Set<Order> getOrder() {
+	public Order getOrder() {
 		return order;
 	}
+	
+	public void setOrder(Order order) {
+		this.order = order;
+	}
 
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

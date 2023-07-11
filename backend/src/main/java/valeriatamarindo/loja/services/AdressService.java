@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import valeriatamarindo.loja.dto.AdressDTO;
-import valeriatamarindo.loja.entities.Adress;
+import valeriatamarindo.loja.entities.Address;
 import valeriatamarindo.loja.repositories.AdressRepository;
 import valeriatamarindo.loja.services.exceptions.DatabaseException;
 import valeriatamarindo.loja.services.exceptions.ResourceNotFoundException;
@@ -26,22 +26,22 @@ public class AdressService {
 
 	@Transactional(readOnly = true)
 	public Page<AdressDTO> findAllPaged(PageRequest pageRequest) {
-		Page<Adress> list = repository.findAll(pageRequest);
+		Page<Address> list = repository.findAll(pageRequest);
 		return list.map(x -> new AdressDTO(x));
 
 	}
 
 	@Transactional(readOnly = true)
 	public AdressDTO findById(Long id) {
-		Optional<Adress> obj = repository.findById(id);
-		Adress entity = obj.orElseThrow(() -> new EntityNotFoundException("Entity not found"));
+		Optional<Address> obj = repository.findById(id);
+		Address entity = obj.orElseThrow(() -> new EntityNotFoundException("Entity not found"));
 		return new AdressDTO(entity);
 
 	}
 
 	@Transactional
 	public AdressDTO insert(AdressDTO dto) {
-		Adress entity = new Adress();
+		Address entity = new Address();
 		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
 		return new AdressDTO(entity);
@@ -50,7 +50,7 @@ public class AdressService {
 	@Transactional
 	public AdressDTO update(Long id, AdressDTO dto) {
 		try {
-			Adress entity = repository.getOne(id);
+			Address entity = repository.getOne(id);
 			entity.setStreet(dto.getStreet());
 			copyDtoToEntity(dto, entity);
 			return new AdressDTO(entity);
@@ -71,7 +71,7 @@ public class AdressService {
 		}
 
 	}
-	private void copyDtoToEntity(AdressDTO dto, Adress entity) {
+	private void copyDtoToEntity(AdressDTO dto, Address entity) {
 		
 		entity.setStreet(dto.getStreet());
 		entity.setNumber(dto.getNumber());

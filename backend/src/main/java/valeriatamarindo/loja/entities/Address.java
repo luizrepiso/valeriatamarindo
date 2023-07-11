@@ -1,20 +1,20 @@
 package valeriatamarindo.loja.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_adress")
-public class Adress implements Serializable {
+@Table(name = "address")
+public class Address implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -24,21 +24,25 @@ public class Adress implements Serializable {
 	private String street;
 	private String number;
 	private String district;
-
-	@ManyToMany(mappedBy = "adress")
-	private Set<Client> client = new HashSet<>();
 	
-	public Adress() {
+	@OneToMany
+    @JoinColumn(name = "adress_id") 
+    private List<Client> client;
+
+	
+	public Address() {
 
 	}
 
-	public Adress(Long id, String street, String number, String district) {
+	public Address(Long id, String street, String number, String district) {
 		this.id = id;
 		this.street = street;
 		this.number = number;
 		this.district = district;
+		
 	}
 
+	
 	public Long getId() {
 		return id;
 
@@ -72,10 +76,10 @@ public class Adress implements Serializable {
 		this.district = district;
 	}
 
-		
-	public Set<Client> getClient() {
+	public List<Client> getClient() {
 		return client;
 	}
+	
 
 	@Override
 	public int hashCode() {
@@ -90,7 +94,7 @@ public class Adress implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Adress other = (Adress) obj;
+		Address other = (Address) obj;
 		return Objects.equals(street, other.street);
 	}
 

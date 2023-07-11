@@ -17,7 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_product")
+@Table(name = "product")
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -34,15 +34,8 @@ public class Product implements Serializable {
 	private Instant date;
 
 	@ManyToMany
-	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+	@JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	Set<Category> categories = new HashSet<>();
-
-	@ManyToMany(mappedBy = "product")
-	private Set<Order> order = new HashSet<>();
-	
-	@ManyToMany(mappedBy = "product")
-	private Set<Stock> stock = new HashSet<>();
-
 
 
 	public Product() {
@@ -110,13 +103,6 @@ public class Product implements Serializable {
 		return categories;
 	}
 
-	public Set<Order> getOrder() {
-		return order;
-	}
-
-	public Set<Stock> getStock() {
-		return stock;
-	}
 
 	@Override
 	public int hashCode() {

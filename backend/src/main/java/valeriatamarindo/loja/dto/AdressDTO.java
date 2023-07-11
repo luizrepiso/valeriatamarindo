@@ -1,6 +1,6 @@
 package valeriatamarindo.loja.dto;
 
-import valeriatamarindo.loja.entities.Adress;
+import valeriatamarindo.loja.entities.Address;
 
 public class AdressDTO {
 
@@ -20,7 +20,7 @@ public class AdressDTO {
 		this.district = district;
 	}
 
-	public AdressDTO(Adress entity) {
+	public AdressDTO(Address entity) {
 		this.id = entity.getId();
 		this.street = entity.getStreet();
 		this.number = entity.getNumber();

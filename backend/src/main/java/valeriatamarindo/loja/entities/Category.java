@@ -16,7 +16,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_category")
+@Table(name = "category")
 public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -41,6 +41,7 @@ public class Category implements Serializable {
 		this.name = name;
 		this.createdAt = createdAt;
 		this.updateAt = updateAt;
+		
 		
 	}
 

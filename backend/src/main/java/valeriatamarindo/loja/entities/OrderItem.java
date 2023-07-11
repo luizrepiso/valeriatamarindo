@@ -1,41 +1,47 @@
 package valeriatamarindo.loja.entities;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "stock")
-public class Stock implements Serializable {
+@Table(name = "orderItem")
+public class OrderItem implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-
-	private Instant date;
-
-	private Integer quantity;
-
 		
-	public Stock() {
-
+	private Integer quantity;
+	private Double value;
+	
+	@ManyToOne
+    @JoinColumn(name = "order_id")
+	private Order order;	
+	
+	@ManyToOne
+    @JoinColumn(name = "product_id")
+	private Product product;
+	
+	public OrderItem() {	
+		
 	}
 
-	public Stock(Long id, Instant date, Integer quantity) {
+	public OrderItem(Long id, Integer quantity, Double value) {
 		this.id = id;
-		this.date = date;
 		this.quantity = quantity;
-
+		this.value = value;
+		
 	}
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -43,16 +49,7 @@ public class Stock implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	
-	public Instant getDate() {
-		return date;
-	}
-
-	public void setDate(Instant date) {
-		this.date = date;
-	}
-
 	public Integer getQuantity() {
 		return quantity;
 	}
@@ -61,7 +58,22 @@ public class Stock implements Serializable {
 		this.quantity = quantity;
 	}
 
+	public Double getValue() {
+		return value;
+	}
+
+	public void setValue(Double value) {
+		this.value = value;
+	}
 	
+	public Order getOrder() {
+		return order;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -75,8 +87,12 @@ public class Stock implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Stock other = (Stock) obj;
+		OrderItem other = (OrderItem) obj;
 		return Objects.equals(id, other.id);
 	}
 
+	
+	
+	
+	
 }

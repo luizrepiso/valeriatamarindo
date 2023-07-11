@@ -2,40 +2,45 @@ package valeriatamarindo.loja.dto;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import valeriatamarindo.loja.entities.Order;
+import valeriatamarindo.loja.entities.OrderItem;
 
 public class OrderDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
 	private Instant date;
-	private String status;
 	private Double totalOrder;
-	private String typePayment;
 	private Long clientId;
+
+	private List<OrderItemDTO> orderItem = new ArrayList<>();
 
 	public OrderDTO() {
 
 	}
 
-	public OrderDTO(Long id, Instant date, String status, Double totalOrder, String typePayment, Long clientId) {
+	public OrderDTO(Long id, Instant date, Double totalOrder, Long clientId) {
 		this.id = id;
 		this.date = date;
-		this.status = status;
 		this.totalOrder = totalOrder;
-		this.typePayment = typePayment;
 		this.clientId = clientId;
+
 	}
 
 	public OrderDTO(Order entity) {
 		this.id = entity.getId();
 		this.date = entity.getDate();
-		this.status = entity.getStatus();
 		this.totalOrder = entity.getTotalOrder();
-		this.typePayment = entity.getTypePayment();
-		this.clientId = entity.getClient().getId();
 
+	}
+
+	public OrderDTO(Order entity, Set<OrderItem> orderItem) {
+		this(entity);
+		orderItem.forEach(ord -> this.orderItem.add(new OrderItemDTO(ord)));
 	}
 
 	public Long getId() {
@@ -54,14 +59,6 @@ public class OrderDTO implements Serializable {
 		this.date = date;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
 	public Double getTotalOrder() {
 		return totalOrder;
 	}
@@ -70,16 +67,12 @@ public class OrderDTO implements Serializable {
 		this.totalOrder = totalOrder;
 	}
 
-	public String getTypePayment() {
-		return typePayment;
-	}
-
 	public Long getClientId() {
 		return clientId;
 	}
 
-	public void setSum(String typePayment) {
-		this.typePayment = typePayment;
+	public List<OrderItemDTO> getOrderItem() {
+		return orderItem;
 	}
 
 }

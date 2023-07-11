@@ -2,22 +2,25 @@ package valeriatamarindo.loja.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import valeriatamarindo.loja.enuns.OrderStatus;
+
 @Entity
-@Table(name = "tb_order")
+@Table(name = "order")
 public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -25,36 +28,32 @@ public class Order implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private Instant date;
-
-	private String status;
+	private Instant date;	
 	private Double totalOrder;
-	private String typePayment;
 	
-	@ManyToMany
-	@JoinTable(name = "tb_order_payment", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "payment_id"))
-	Set<Payment> payment = new HashSet<>();
 	
-	@ManyToMany
-	@JoinTable(name = "tb_order_product", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
-	Set<Product> product = new HashSet<>();
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private OrderStatus orderStatus;
 	
 	@ManyToOne
 	@JoinColumn(name = "client_id")
-	private Client client;	
+	private Client clientId;
 
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItem;
+
+	
 	public Order() {
 
 	}
 
-	public Order(Long id, Instant date, String status, Double totalOrder, String typePayment) {
+	public Order(Long id, Instant date,  Double totalOrder) {
 		this.id = id;
 		this.date = date;
-		this.status = status;
 		this.totalOrder = totalOrder;
-		this.typePayment = typePayment;
 		
-	}
+			}
 
 	public Long getId() {
 		return id;
@@ -62,14 +61,6 @@ public class Order implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	public Double getTotalOrder() {
@@ -88,26 +79,17 @@ public class Order implements Serializable {
 		this.date = date;
 	}
 
-	public String getTypePayment() {
-		return typePayment;
+	
+	public OrderStatus getOrderStatus() {
+		return orderStatus;
 	}
 
-	public void setTypePayment(String typePayment) {
-		this.typePayment = typePayment;
-	}
+	public Client getClientId() {
+		return clientId;
+	}	
 	
-	public Set<Product> getProduct() {
-		return product;
-	}
-	
-	public Set<Payment> getPayment() {
-		return payment;
-	}
-
-	
-
-	public Client getClient() {
-		return client;
+	public List<OrderItem> getOrderItem() {
+		return orderItem;
 	}
 
 	@Override
