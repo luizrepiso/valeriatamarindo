@@ -1,8 +1,9 @@
 import './assets/styles/custom.scss';
-import "./App.css";
+import './App.css';
+import Navbar from 'components/Navbar';
 
-function App() {
-  
-  return <h1>Hello Valeria Tamarindo</h1>;
-}
+const App = () => {
+  return <Navbar />;
+};
+
 export default App;
