@@ -2,12 +2,17 @@ import './styles.css';
 import '@popperjs/core';
 import 'bootstrap/js/dist/collapse';
 
+import LogoImg from 'assets/images/logo.png';
+
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-md navbar-dark bg-danger main-nav">
+    <nav className="navbar navbar-expand-md bg-light main-nav">
+      <div className="image-container">
+        <img className="main-image" src={LogoImg} alt="Modelo" />
+      </div>
       <div className="container-fluid">
         <a href="link" className="nav-logo-text">
-          <h4>Loja Valeria Tamarindo</h4>
+          <h6>Loja Valeria Tamarindo</h6>
         </a>
         <button
           className="navbar-toggler"
@@ -21,7 +26,7 @@ const Navbar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse" id="valeriatamarindo">
+        <div className="collapse navbar-collapse" id="valeriatamarindo-navbar">
           <ul className="navbar-nav offset-md-2 main-menu">
             <li>
               <a href="link" className="active">
