@@ -3,6 +3,7 @@ import '@popperjs/core';
 import 'bootstrap/js/dist/collapse';
 
 import LogoImg from 'assets/images/logo.png';
+import { Link, NavLink } from 'react-router-dom';
 
 const Navbar = () => {
   return (
@@ -11,9 +12,9 @@ const Navbar = () => {
         <img className="main-image" src={LogoImg} alt="Modelo" />
       </div>
       <div className="container-fluid">
-        <a href="link" className="nav-logo-text">
+        <Link to="/" className="nav-logo-text">
           <h6>Loja Valeria Tamarindo</h6>
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -29,18 +30,19 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="valeriatamarindo-navbar">
           <ul className="navbar-nav offset-md-2 main-menu">
             <li>
-              <a href="link" className="active">
+              <NavLink to="/" activeClassName="active" exact>
                 HOME
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href="link">CATÁLOGO</a>
+              <NavLink to="colections" activeClassName="active">
+                CATÁLOGO
+              </NavLink>
             </li>
             <li>
-              <a href="link">ADMIN</a>
-            </li>
-            <li>
-              <a href="link">ORDER</a>
+              <NavLink to="/admin" activeClassName="active">
+                ADMIN
+              </NavLink>
             </li>
           </ul>
         </div>

@@ -1,12 +1,15 @@
-import Navbar from 'components/Navbar';
+import { ReactComponent as Desenho } from 'assets/images/Desenho.svg';
+
 const Catalog = () => {
-  return (
-    <>
-      <Navbar />
-      <div className="container my-4">
-        <h1>Tela de Catalog</h1>
+  return (   <>
+    <div className="home-container">
+      <h1>Conheça o melhor catálogo de roupas</h1>
+      <div className="home-image-container">
+        <Desenho />
       </div>
-    </>
-  );
-}
+    </div>
+  </>
+);
+};
+   
 export default Catalog;

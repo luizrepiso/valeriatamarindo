@@ -1,0 +1,15 @@
+.colection-price-container {
+    display: flex;
+    align-items: center;
+  }
+  .colection-price-container span {
+    font-size: 18px;
+    color: #9e9e9e;
+    padding-bottom: 5px;
+  }
+  .colection-price-container h3 {
+    font-size: 32px;
+    color: #407bff;
+    margin-left:10px;
+  }
+  

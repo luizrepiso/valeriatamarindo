@@ -1,25 +1,38 @@
-import { ReactComponent as Desenho } from 'assets/images/Desenho.svg';
-import Navbar from 'components/Navbar';
-
+import ColectionsCard from 'components/ColectionsCard/index';
 import './styles.css';
+import ButtonIcon from 'components/ButtonIcon';
 
 const Home = () => {
   return (
-    <>
-      <Navbar />
-      <div className="home-container">
-        <div className=" base-card home-card">
-          <div className="home-content-container">
-            <h1>Conheça o melhor catálogo de roupas</h1>
-          </div>
-          <div className="home-image-container">
-            <Desenho />
-          </div>
-          
+    <div className="container my-4">
+      <div className="row">
+        <div className="col-sm-6 col-lg-4 col-xl-3">
+          <ColectionsCard />
         </div>
-        
+        <div className="col-sm-6 col-lg-4 col-xl-3">
+          <ColectionsCard />
+        </div>
+        <div className="col-sm-6 col-lg-4 col-xl-3">
+          <ColectionsCard />
+        </div>
+        <div className="col-sm-6 col-lg-4 col-xl-3">
+          <ColectionsCard />
+        </div>
+        <div className="col-sm-6 col-lg-4 col-xl-3">
+          <ColectionsCard />
+        </div>
+        <div className="col-sm-6 col-lg-4 col-xl-3">
+          <ColectionsCard />
+        </div>
+        <div className="col-sm-6 col-lg-4 col-xl-3">
+          <ColectionsCard />
+        </div>
+        <div className="col-sm-6 col-lg-4 col-xl-3">
+          <ColectionsCard />
+        </div>
       </div>
-    </>
+      <ButtonIcon text="Ver mais" />
+    </div>
   );
 };
 

@@ -1,0 +1,18 @@
+.btn-container {
+  display: flex;
+  border: 1px solid #961417;
+}
+
+.btn-icon {
+  width: 280px;
+  height: 40px;
+  color: #961417;
+}
+
+.btn-icon-container {
+  align-items: center;
+  width: 50px;
+  height: 40px;
+  color: #961417;
+  padding-left: 3px;
+}
