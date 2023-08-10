@@ -30,7 +30,7 @@ public class Category implements Serializable {
 	private Instant updateAt;
 
 	@ManyToMany(mappedBy = "categories")
-	private Set<Product> product = new HashSet<>();
+	private Set<Product> products = new HashSet<>();
 
 	public Category() {
 
@@ -70,7 +70,7 @@ public class Category implements Serializable {
 	}
 
 	public Set<Product> getProduct() {
-		return product;
+		return products;
 	}
 
 	@PrePersist

@@ -6,7 +6,7 @@ type Props = {
   colection: Colection;
 };
 
-const ColectionsCard = ({ colection }: Props) => {
+const ColectionCard = ({ colection }: Props) => {
   return (
     <div className="base-card colection-card">
       <div className="card-top-container">
@@ -23,4 +23,4 @@ const ColectionsCard = ({ colection }: Props) => {
     </div>
   );
 };
-export default ColectionsCard;
+export default ColectionCard;

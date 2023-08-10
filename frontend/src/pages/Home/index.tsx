@@ -1,4 +1,4 @@
-import ColectionsCard from 'components/ColectionsCard/index';
+import ColectionCard from 'components/ColectionCard/index';
 import './styles.css';
 import ButtonIcon from 'components/ButtonIcon';
 import { Colection } from 'types/colection';
@@ -28,22 +28,22 @@ const Home = () => {
     <div className="container my-4">
       <div className="row">
         <div className="col-sm-6 col-lg-4 col-xl-3">
-          <ColectionsCard colection={colection} />
+          <ColectionCard colection={colection} />
         </div>
         <div className="col-sm-6 col-lg-4 col-xl-3">
-          <ColectionsCard colection={colection} />
+          <ColectionCard colection={colection} />
         </div>
         <div className="col-sm-6 col-lg-4 col-xl-3">
-          <ColectionsCard colection={colection} />
+          <ColectionCard colection={colection} />
         </div>
         <div className="col-sm-6 col-lg-4 col-xl-3">
-          <ColectionsCard colection={colection} />
+          <ColectionCard colection={colection} />
         </div>
         <div className="col-sm-6 col-lg-4 col-xl-3">
-          <ColectionsCard colection={colection} />
+          <ColectionCard colection={colection} />
         </div>
         <div className="col-sm-6 col-lg-4 col-xl-3">
-          <ColectionsCard colection={colection} />
+          <ColectionCard colection={colection} />
         </div>
       </div>
       <ButtonIcon text="Ver mais" />
