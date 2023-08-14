@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
+
 import valeriatamarindo.loja.entities.Category;
 import valeriatamarindo.loja.entities.Product;
 
@@ -13,8 +16,12 @@ public class ProductDTO {
 	private Long id;
 	private String name;
 	private String description;
+	
+	@Positive(message = "Preço deve ser positivo")
 	private Double price;
 	private String imgUrl;
+	
+	@PastOrPresent(message = "A data do produto não pode ser futura")
 	private Instant date;
 
 	private List<CategoryDTO> categories = new ArrayList<>();
