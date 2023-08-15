@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 import valeriatamarindo.loja.entities.Category;
 import valeriatamarindo.loja.entities.Product;
@@ -14,6 +15,8 @@ import valeriatamarindo.loja.entities.Product;
 public class ProductDTO {
 
 	private Long id;
+	
+	@Size(min = 5, max = 60, message = "Deve ter entre 5 e 60 caracteres")
 	private String name;
 	private String description;
 	
