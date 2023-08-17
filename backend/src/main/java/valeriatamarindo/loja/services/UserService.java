@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import valeriatamarindo.loja.dto.RoleDTO;
 import valeriatamarindo.loja.dto.UserDTO;
 import valeriatamarindo.loja.dto.UserInsertDTO;
+import valeriatamarindo.loja.dto.UserUpdateDTO;
 import valeriatamarindo.loja.entities.Role;
 import valeriatamarindo.loja.entities.User;
 import valeriatamarindo.loja.repositories.RoleRepository;
@@ -61,7 +62,7 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserDTO update(Long id, UserDTO dto) {
+	public UserDTO update(Long id, UserUpdateDTO dto) {
 		try {
 			User entity = repository.getOne(id);
 			copyDtoToEntity(dto, entity);
