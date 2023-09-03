@@ -1,8 +1,9 @@
 import ColectionCard from 'components/ColectionCard/index';
-import './styles.css';
 import ButtonIcon from 'components/ButtonIcon';
 import { Colection } from 'types/colection';
 import { Link } from 'react-router-dom';
+
+import './styles.css';
 
 const Catalog = () => {
   const colection: Colection = {
@@ -26,7 +27,10 @@ const Catalog = () => {
   };
 
   return (
-    <div className="container my-4">
+    <div className="container my-4 catalog-container">
+      <div className="row catalog-title-container">
+        <h1>Catálogo de Roupas</h1>
+      </div>
       <div className="row">
         <div className="col-sm-6 col-lg-4 col-xl-3">
           <Link to="/colections/1">
