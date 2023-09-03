@@ -1,6 +1,6 @@
 .main-nav {
   padding-left: 20px;
-  min-height: 70px;
+  min-height: 120px;
   background-color: #fff;
   display: flex;
   flex-flow: row;
@@ -15,7 +15,7 @@
 }
 .image-container {
   width: 80px;
-}
+ }
 
 .navbar-toggler {
   width: 40%;

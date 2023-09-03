@@ -2,15 +2,18 @@ import { ReactComponent as ArrowIcon } from 'assets/images/arrow.svg';
 import ColectionPrice from 'components/ColectionPrice';
 
 import './styles.css';
+import { Link } from 'react-router-dom';
 
 const ColectionDetails = () => {
   return (
-    <div className="product-details-container">
-      <div className="product-details-card">
+    <div className="colection-details-container">
+      <div className="colection-details-card">
+        <Link to="/colections">
         <div className="goback-container">
           <ArrowIcon />
           <h2>VOLTAR</h2>
         </div>
+        </Link>
         <div className="row">
           <div className="col-xl-6">
             <div className="img-container">
