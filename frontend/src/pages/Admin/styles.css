@@ -9,6 +9,7 @@
 @media (min-width: 1200px) {
   .admin-container {
     flex-direction: row;
+    background-color: #E1E1E1;
   }
   .admin-content {
     flex: 1;
