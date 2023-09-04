@@ -1,5 +1,5 @@
 import ColectionCard from 'components/ColectionCard/index';
-import ButtonIcon from 'components/ButtonIcon';
+import Pagination from 'components/Pagination';
 import { Colection } from 'types/colection';
 import { Link } from 'react-router-dom';
 
@@ -62,8 +62,20 @@ const Catalog = () => {
             <ColectionCard colection={colection} />
           </Link>
         </div>
-      </div>
-      <ButtonIcon text="Ver mais" />
+        <div className="col-sm-6 col-lg-4 col-xl-3">
+          <Link to="/colections/1">
+            <ColectionCard colection={colection} />
+          </Link>
+        </div>
+        <div className="col-sm-6 col-lg-4 col-xl-3">
+          <Link to="/colections/1">
+            <ColectionCard colection={colection} />
+          </Link>
+        </div>
+        <div className="row"><Pagination/>
+
+        </div>
+      </div>      
     </div>
   );
 };
