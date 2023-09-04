@@ -3,7 +3,7 @@ import Admin from 'pages/Admin';
 import Catalog from 'pages/Catalog';
 import ProductDetails from 'pages/ColectionDetails';
 import Home from 'pages/Home';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 const Routes = () => (
   <BrowserRouter>
@@ -18,6 +18,7 @@ const Routes = () => (
       <Route path="/colections/:colectionId">
         <ProductDetails />
       </Route>
+      <Redirect from="/admin" to="/admin/colections" exact />
       <Route path="/admin">
         <Admin />
       </Route>
