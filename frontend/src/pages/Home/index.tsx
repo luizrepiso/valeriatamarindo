@@ -1,11 +1,10 @@
-import ColectionCard from 'components/ColectionCard/index';
+import ProductCard from 'components/ProductCard/index';
 import './styles.css';
-import ButtonIcon from 'components/ButtonIcon';
-import { Colection } from 'types/colection';
+import { Product } from 'types/product';
 
 
 const Home = () => {
-  const colection: Colection = {
+  const product: Product = {
     id: 2,
     name: 'The Lord of the Rings',
     description: 'fdfdfdfdfdfdf',
@@ -29,28 +28,28 @@ const Home = () => {
     <div className="container my-4">
       <div className="row">
         <div className="col-sm-6 col-lg-4 col-xl-3">
-          <ColectionCard colection={colection} />
+          <ProductCard product={product} />
         </div>
         <div className="col-sm-6 col-lg-4 col-xl-3">
-          <ColectionCard colection={colection} />
+          <ProductCard product={product} />
         </div>
         <div className="col-sm-6 col-lg-4 col-xl-3">
-          <ColectionCard colection={colection} />
+          <ProductCard product={product} />
         </div>
         <div className="col-sm-6 col-lg-4 col-xl-3">
-          <ColectionCard colection={colection} />
+          <ProductCard product={product} />
         </div>
         <div className="col-sm-6 col-lg-4 col-xl-3">
-          <ColectionCard colection={colection} />
+          <ProductCard product={product} />
         </div>
         <div className="col-sm-6 col-lg-4 col-xl-3">
-          <ColectionCard colection={colection} />
+          <ProductCard product={product} />
         </div>
         <div className="col-sm-6 col-lg-4 col-xl-3">
-          <ColectionCard colection={colection} />
+          <ProductCard product={product} />
         </div>
         <div className="col-sm-6 col-lg-4 col-xl-3">
-          <ColectionCard colection={colection} />
+          <ProductCard product={product} />
         </div>
       </div>
       

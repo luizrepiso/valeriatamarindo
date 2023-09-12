@@ -1,12 +1,13 @@
-import ColectionCard from 'components/ColectionCard/index';
+import ProductCard from 'components/ProductCard/index';
 import Pagination from 'components/Pagination';
-import { Colection } from 'types/colection';
+import { Product } from 'types/product';
 import { Link } from 'react-router-dom';
 
 import './styles.css';
 
 const Catalog = () => {
-  const colection: Colection = {
+  
+  const product: Product = {
     id: 2,
     name: 'The Lord of the Rings',
     description: 'fdfdfdfdfdfdf',
@@ -33,43 +34,43 @@ const Catalog = () => {
       </div>
       <div className="row">
         <div className="col-sm-6 col-lg-4 col-xl-3">
-          <Link to="/colections/1">
-            <ColectionCard colection={colection} />
+          <Link to="/products/1">
+            <ProductCard product={product} />
           </Link>
         </div>
         <div className="col-sm-6 col-lg-4 col-xl-3">
-          <Link to="/colections/1">
-            <ColectionCard colection={colection} />
+          <Link to="/products/1">
+            <ProductCard product={product} />
           </Link>
         </div>
         <div className="col-sm-6 col-lg-4 col-xl-3">
-          <Link to="/colections/1">
-            <ColectionCard colection={colection} />
+          <Link to="/products/1">
+            <ProductCard product={product} />
           </Link>
         </div>
         <div className="col-sm-6 col-lg-4 col-xl-3">
-          <Link to="/colections/1">
-            <ColectionCard colection={colection} />
+          <Link to="/products/1">
+            <ProductCard product={product} />
           </Link>
         </div>
         <div className="col-sm-6 col-lg-4 col-xl-3">
-          <Link to="/colections/1">
-            <ColectionCard colection={colection} />
+          <Link to="/products/1">
+            <ProductCard product={product} />
           </Link>
         </div>
         <div className="col-sm-6 col-lg-4 col-xl-3">
-          <Link to="/colections/1">
-            <ColectionCard colection={colection} />
+          <Link to="/products/1">
+            <ProductCard product={product} />
           </Link>
         </div>
         <div className="col-sm-6 col-lg-4 col-xl-3">
-          <Link to="/colections/1">
-            <ColectionCard colection={colection} />
+          <Link to="/products/1">
+            <ProductCard product={product} />
           </Link>
         </div>
         <div className="col-sm-6 col-lg-4 col-xl-3">
-          <Link to="/colections/1">
-            <ColectionCard colection={colection} />
+          <Link to="/products/1">
+            <ProductCard product={product} />
           </Link>
         </div>
         <div className="row"><Pagination/>

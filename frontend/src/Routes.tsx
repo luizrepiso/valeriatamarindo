@@ -1,7 +1,7 @@
 import Navbar from 'components/Navbar';
 import Admin from 'pages/Admin';
 import Catalog from 'pages/Catalog';
-import ProductDetails from 'pages/ColectionDetails';
+import ProductDetails from 'pages/ProductDetails';
 import Home from 'pages/Home';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
@@ -12,13 +12,13 @@ const Routes = () => (
       <Route path="/" exact>
         <Home />
       </Route>
-      <Route path="/colections" exact>
+      <Route path="/products" exact>
         <Catalog />
       </Route>
-      <Route path="/colections/:colectionId">
+      <Route path="/products/:productId">
         <ProductDetails />
       </Route>
-      <Redirect from="/admin" to="/admin/colections" exact />
+      <Redirect from="/admin" to="/admin/products" exact />
       <Route path="/admin">
         <Admin />
       </Route>

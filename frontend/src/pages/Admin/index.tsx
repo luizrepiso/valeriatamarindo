@@ -9,8 +9,8 @@ const Admin = () => {
       <Navbar />
       <div className="admin-content">
         <Switch>
-          <Route path="/admin/colections">
-            <h1>Colection CRUD</h1>
+          <Route path="/admin/products">
+            <h1>Product CRUD</h1>
           </Route>
           <Route path="/admin/categories">
             <h1>Category CRUD</h1>
