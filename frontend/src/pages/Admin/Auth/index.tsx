@@ -1,6 +1,8 @@
 import LogoImg from 'assets/images/logo.png';
 import { Route, Switch } from 'react-router-dom';
 
+import './styles.css';
+
 const Auth = () => {
   return (
     <div className="auth-container">
@@ -10,19 +12,19 @@ const Auth = () => {
         <div className="image-container">
           <img className="main-image" src={LogoImg} alt="Modelo" />
         </div>
-        <div className="auth-form-container">
-          <Switch>
-            <Route path="/admin/auth/login">
-              <h1>Card de login</h1>
-            </Route>
-            <Route path="/admin/auth/signup">
-              <h1>Card de signup</h1>
-            </Route>
-            <Route path="/admin/auth/recover">
-              <h1>Card de recover</h1>
-            </Route>
-          </Switch>
-        </div>
+      </div>
+      <div className="auth-form-container">
+        <Switch>
+          <Route path="/admin/auth/login">
+            <h1>Card de login</h1>
+          </Route>
+          <Route path="/admin/auth/signup">
+            <h1>Card de signup</h1>
+          </Route>
+          <Route path="/admin/auth/recover">
+            <h1>Card de recover</h1>
+          </Route>
+        </Switch>
       </div>
     </div>
   );
