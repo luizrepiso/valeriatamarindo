@@ -4,19 +4,20 @@ import { Product } from 'types/product';
 import { Link } from 'react-router-dom';
 import { SpringPage } from 'types/vendor/spring';
 import { useEffect, useState } from 'react';
+import { BASE_URL } from 'util/requests';
+import axios, { AxiosRequestConfig } from 'axios';
 
 import './styles.css';
-import { AxiosParams } from 'types/vendor/axios';
-import { BASE_URL } from 'util/requests';
-import axios from 'axios';
+
 
 const Catalog = () => {
   const [page, setPage] = useState<SpringPage<Product>>();
 
   useEffect(() => {
-    const params: AxiosParams = {
+    const params: AxiosRequestConfig = {
       method: 'GET',
-      url: `${BASE_URL}/products`,
+      url: "/products",
+      baseURL: BASE_URL,
       params: {
         page: 0,
         size: 12,
