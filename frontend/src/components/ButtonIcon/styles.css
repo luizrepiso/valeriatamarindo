@@ -1,6 +1,18 @@
 .btn-container {
   display: flex;
-  border: 1px solid #961417;
+  background-color: #961417;
+  color: #fff;
+}
+
+.btn-container button {
+  width: 100%;
+  border-radius: 10px 0 0 10px;
+}
+
+.btn h6 {
+  color:#fff;
+  font-size: 14px;
+  text-transform: uppercase;
 }
 
 .btn-icon {
@@ -10,9 +22,22 @@
 }
 
 .btn-icon-container {
+  display: flex;
+  justify-content: center;
   align-items: center;
   width: 50px;
-  height: 40px;
-  color: #961417;
-  padding-left: 3px;
+  height: 50px;
+  border-radius: 0px 10px 10px 0px;
+  background-color: #961417;
+  color: #fff;
+}
+@media (min-width: 576px) {
+  .btn-icon-container {
+    width: 70px;
+    height: 50px;
+  }
+
+  .btn h6 {
+    font-size: 18px;
+  }
 }
