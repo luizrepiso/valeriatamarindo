@@ -44,6 +44,7 @@ public class ProductResource {
 
 	}
 
+
 	@PostMapping
 	public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO dto) {
 		dto = service.insert(dto);
