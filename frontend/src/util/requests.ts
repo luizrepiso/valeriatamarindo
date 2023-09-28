@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
 
 type LoginResponse = {
@@ -8,7 +8,7 @@ type LoginResponse = {
   scope: string;
   userFirstName: string;
   userId: number;
-}
+};
 
 const tokenKey = 'authData';
 
@@ -33,20 +33,25 @@ export const requestBackendLogin = (loginData: LoginData) => {
     ...loginData,
     grant_type: 'password',
   });
-  
+
   return axios({
     method: 'POST',
     baseURL: BASE_URL,
     url: '/oauth/token',
-    data, headers
+    data,
+    headers,
   });
-  
-}; 
-export const saveAuthData = (obj : LoginResponse) => {
+};
+
+export const requestBackend = (config: AxiosRequestConfig) => {
+  return axios(config);
+};
+
+export const saveAuthData = (obj: LoginResponse) => {
   localStorage.setItem('authData', JSON.stringify(obj));
-}
+};
 export const getAuthData = () => {
-  const str = localStorage.getItem(tokenKey) ?? "{}";
+  const str = localStorage.getItem(tokenKey) ?? '{}';
   const obj = JSON.parse(str);
   return JSON.parse(str) as LoginResponse;
-}
+};
