@@ -8,7 +8,6 @@ import { requestBackend } from 'util/requests';
 const Users = () => {
   const [page, setPage] = useState<SpringPage<User>>();
 
-
   useEffect(() => {
     const params : AxiosRequestConfig = {
       url: '/users',

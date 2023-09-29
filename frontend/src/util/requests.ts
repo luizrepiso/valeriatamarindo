@@ -44,14 +44,20 @@ export const requestBackendLogin = (loginData: LoginData) => {
 };
 
 export const requestBackend = (config: AxiosRequestConfig) => {
-  return axios(config);
+  const headers = config.withCredentials
+    ? {
+        ...config.headers,
+        Authorization: 'Bearer ' + getAuthData().access_token,
+      }
+    : config.headers;
+
+  return axios({ ...config, baseURL: BASE_URL, headers });
 };
 
 export const saveAuthData = (obj: LoginResponse) => {
-  localStorage.setItem('authData', JSON.stringify(obj));
+  localStorage.setItem(tokenKey, JSON.stringify(obj));
 };
 export const getAuthData = () => {
-  const str = localStorage.getItem(tokenKey) ?? '{}';
-  const obj = JSON.parse(str);
+  const str = localStorage.getItem(tokenKey) ?? "{}";
   return JSON.parse(str) as LoginResponse;
 };
