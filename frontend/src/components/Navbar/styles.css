@@ -55,7 +55,20 @@
 .main-menu a:hover {
   color: #000;
 }
-.main-menu a.active {
+/* .main-menu a.active {
   color: #961417;
   font-weight: bold;
 }
+
+.nav-login-logout {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .nav-login-logout {
+    display: unset;
+    color: #961417;
+    margin-right: 15px;
+    justify-content: flex-end;
+  }
+} */
