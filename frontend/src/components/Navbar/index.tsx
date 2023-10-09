@@ -2,7 +2,8 @@ import '@popperjs/core';
 import 'bootstrap/js/dist/collapse';
 import LogoImg from 'assets/images/logo.png';
 import { Link, NavLink } from 'react-router-dom';
-import { getTokenData, isAuthenticated, removeAuthData } from 'util/requests';
+import { getTokenData, isAuthenticated } from 'util/auth';
+import { removeAuthData } from 'util/storage';
 import { useContext, useEffect } from 'react';
 import history from 'util/history';
 
@@ -10,32 +11,29 @@ import './styles.css';
 import { AuthContext } from 'AuthContext';
 
 const Navbar = () => {
-
   const { authContextData, setAuthContextData } = useContext(AuthContext);
 
+  useEffect(() => {
+    if (isAuthenticated()) {
+      setAuthContextData({
+        authenticated: true,
+        tokenData: getTokenData(),
+      });
+    } else {
+      setAuthContextData({
+        authenticated: false,
+      });
+    }
+  }, [setAuthContextData]);
 
-useEffect(() => {
-  if (isAuthenticated()) {
-  setAuthContextData({
-authenticated: true,
-tokenData: getTokenData()
-  });
-}
-else {
-  setAuthContextData({
-    authenticated: false
-  });
-}
-}, [setAuthContextData]);
-
-const handleLogoutClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-  event.preventDefault();
-  removeAuthData();
-  setAuthContextData({
-    authenticated: false
-  });
-  history.replace('/');
-}
+  const handleLogoutClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    removeAuthData();
+    setAuthContextData({
+      authenticated: false,
+    });
+    history.replace('/');
+  };
 
   return (
     <nav className="navbar navbar-expand-md bg-light main-nav">
@@ -77,8 +75,8 @@ const handleLogoutClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
             </li>
           </ul>
         </div>
-        
-       {/*  <div className="nav-login-logout">
+
+        {/*  <div className="nav-login-logout">
         {authContextData.authenticated ? (
           <>
           <span className="nav-username">{authContextData.tokenData?.user_name}</span>

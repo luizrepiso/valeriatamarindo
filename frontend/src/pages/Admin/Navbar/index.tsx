@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import './styles.css';
-import { hasAnyRoles } from 'util/requests';
+import { hasAnyRoles } from 'util/auth';
 
 const Navbar = () => {
   return (
@@ -11,7 +11,7 @@ const Navbar = () => {
             <p>produtos</p>
           </NavLink>
         </li>
-        <li>
+        <li>f
           <NavLink to="/admin/categories" className="admin-nav-item">
             <p>categorias</p>
           </NavLink>
