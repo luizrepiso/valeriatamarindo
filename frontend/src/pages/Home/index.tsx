@@ -1,8 +1,7 @@
 import ProductCard from 'components/ProductCard/index';
 import './styles.css';
 import { Product } from 'types/product';
-import { get } from 'http';
-import { getTokenData, isAuthenticated } from 'util/requests';
+
 
 const Home = () => {
   const product: Product = {
@@ -28,8 +27,7 @@ const Home = () => {
   return (
     <div className="container my-4">
 
-      <h1>{isAuthenticated() ? 'autenticado' : 'Não Autenticado'}</h1>
-      <div className="row">
+        <div className="row">
         <div className="col-sm-6 col-lg-4 col-xl-3">
           <ProductCard product={product} />
         </div>

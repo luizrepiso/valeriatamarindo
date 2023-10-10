@@ -11,7 +11,7 @@ const Navbar = () => {
             <p>produtos</p>
           </NavLink>
         </li>
-        <li>f
+        <li>
           <NavLink to="/admin/categories" className="admin-nav-item">
             <p>categorias</p>
           </NavLink>
