@@ -1,4 +1,4 @@
-import ProductCrudCard from 'components/ProductCrudCard';
+import ProductCrudCard from 'pages/Admin/Products/ProductCrudCard';
 
 import './styles.css';
 import { Link } from 'react-router-dom';
@@ -11,7 +11,16 @@ const List = () => {
     price: 700.0,
     imgUrl: '',
     date: '2020-07-20T10:00:00Z',
-    categories: [],
+    categories: [
+      {
+        id: 2,
+        name: 'Vestidos',
+      },
+      {
+        id: 1,
+        name: 'Saia',
+      }
+    ],
   };
 
   return (
