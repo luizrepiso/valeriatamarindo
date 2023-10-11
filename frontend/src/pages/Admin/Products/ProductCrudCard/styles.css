@@ -27,7 +27,7 @@
   padding: 20px;
   flex-wrap: wrap;
 }
-.product-crud-buttons-container {
+.product-crud-card-buttons-container {
   padding: 0 20px;
   display: flex;
   justify-content: space-between;
@@ -56,7 +56,7 @@
     border-bottom: 1px solid #e1e1e1;
   }
 
-  .product-crud-buttons-container {
+  .product-crud-card-buttons-container {
     flex-direction: column-reverse;
     justify-content: center;
   }
@@ -75,7 +75,7 @@
   }
 }
 @media (min-width: 992px) {
-  .product-crud-buttons-container {
+  .product-crud-card-buttons-container {
     width: 220px;
   }
 }
