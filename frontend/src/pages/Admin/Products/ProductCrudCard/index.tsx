@@ -17,8 +17,8 @@ const ProductCrudCard = ({ product }: Props) => {
           alt={product.name}
         />
       </div>
-      <div>
-        <div className="product-crud-card-bottom-container">
+      <div className="product-crud-card-description">
+        <div className="product-crud-card-buttom-container">
           <h6>{product.name}</h6>
           <ProductPrice price={product.price} />
         </div>
@@ -27,15 +27,15 @@ const ProductCrudCard = ({ product }: Props) => {
             <CategoryBadge name={category.name} key={category.id} />
           ))}
         </div>
+        </div>
         <div className="product-crud-buttons-container">
           <button className="btn btn-outline-danger product-crud-button-first">EXCLUIR</button>
           
           <button className="btn btn-outline-secondary product-crud-button"> EDITAR</button>
          
-
         </div>
       </div>
-    </div>
+   
   );
 };
 export default ProductCrudCard;

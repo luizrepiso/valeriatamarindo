@@ -9,7 +9,8 @@ const List = () => {
     name: 'Blusa Tricô',
     description: 'Linda Blusa Verde',
     price: 700.0,
-    imgUrl: '',
+    imgUrl: 'https://static.ecosweb.com.br/public/produtos/moda-feminina/blusa-manga-curta/blusa-barrado-color-alongada_358530_1000_1.webp',
+    
     date: '2020-07-20T10:00:00Z',
     categories: [
       {
