@@ -15,12 +15,10 @@ const Form = () => {
   } = useForm<Product>();
 
   const onSubmit = (formData: Product) => {
-    const data = {
-      ...formData,
-      imgUrl:
-        'https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/1-big.jpg',
-      categories: [{ id: 1, name: '' }],
-    };
+
+    const data = {...formData,
+       imgUrl:'https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/1-big.jpg',
+        categories: [{ id: 1, name: '' }]};
 
     const config: AxiosRequestConfig = {
       method: 'POST',
@@ -29,8 +27,8 @@ const Form = () => {
       withCredentials: true,
     };
 
-    requestBackend(config).then((response) => {
-      console.log(response.data);
+    requestBackend(config).then(() => {
+      history.push('/admin/products'); 
     });
   };
 
