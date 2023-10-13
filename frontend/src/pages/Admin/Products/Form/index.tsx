@@ -3,21 +3,18 @@ import { Product } from 'types/product';
 import { requestBackend } from 'util/requests';
 import { AxiosRequestConfig } from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Select from 'react-select';
 
 import './styles.css';
+import { Category } from 'types/category';
 
 type UrlParams = {
   productId: string;
 };
 
 const Form = () => {
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-  ];
+  const options = [];
 
   const { productId } = useParams<UrlParams>();
 
@@ -25,12 +22,22 @@ const Form = () => {
 
   const history = useHistory();
 
+  const [selectCategories, setSelectCategories] = useState<Category[]>([]);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
   } = useForm<Product>();
+
+  useEffect(() => {
+    requestBackend({
+      url: 'categories',
+    }).then((response) => {
+      setSelectCategories(response.data.content);
+    });
+  }, []);
 
   useEffect(() => {
     if (isEditing) {
@@ -97,8 +104,13 @@ const Form = () => {
 
                 <div className="margin-buttom-30"></div>
 
-                <Select options={options} 
-                classNamePrefix="product-crud-select"/>
+                <Select
+                  options={selectCategories}
+                  classNamePrefix="product-crud-select"
+                  isMulti
+                  getOptionLabel={(category: Category) => category.name}
+                  getOptionValue={(category: Category) => String(category.id)}
+                />
               </div>
               <div className="margin-buttom-30">
                 <input
