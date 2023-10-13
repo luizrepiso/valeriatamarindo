@@ -33,7 +33,7 @@ public class ProductService {
 	@Transactional(readOnly = true)
 	public Page<ProductDTO> findAllPaged(PageRequest pageRequest) {
 		Page<Product> list = repository.findAll(pageRequest);
-		return list.map(x -> new ProductDTO(x));
+		return list.map(x -> new ProductDTO(x, x.getCategories()));
 
 	}
 
@@ -41,7 +41,7 @@ public class ProductService {
 	public ProductDTO findById(Long id) {
 		Optional<Product> obj = repository.findById(id);
 		Product entity = obj.orElseThrow(() -> new EntityNotFoundException("Entity not found"));
-		return new ProductDTO(entity);
+		return new ProductDTO(entity, entity.getCategories());
 
 	}
 
