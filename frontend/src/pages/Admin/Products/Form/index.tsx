@@ -4,16 +4,21 @@ import { requestBackend } from 'util/requests';
 import { AxiosRequestConfig } from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import Select from 'react-select';
 
 import './styles.css';
 
-
 type UrlParams = {
   productId: string;
- 
 };
 
 const Form = () => {
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' },
+  ];
+
   const { productId } = useParams<UrlParams>();
 
   const isEditing = productId !== 'create';
@@ -24,15 +29,14 @@ const Form = () => {
     register,
     handleSubmit,
     formState: { errors },
-    setValue
+    setValue,
   } = useForm<Product>();
 
   useEffect(() => {
     if (isEditing) {
-      console.log('productId',{productId} );
-      requestBackend({ url : `/products/${productId}`}).then((response) => {
+      requestBackend({ url: `/products/${productId}` }).then((response) => {
         const product = response.data as Product;
-        console.log("PRODUCT", product);
+
         setValue('name', product.name);
         setValue('price', product.price);
         setValue('description', product.description);
@@ -45,14 +49,15 @@ const Form = () => {
   const onSubmit = (formData: Product) => {
     const data = {
       ...formData,
-      imgUrl: isEditing ? formData.imgUrl :
-        'https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/1-big.jpg',
+      imgUrl: isEditing
+        ? formData.imgUrl
+        : 'https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/1-big.jpg',
       categories: isEditing ? formData.categories : [{ id: 1, name: '' }],
     };
 
     const config: AxiosRequestConfig = {
       method: isEditing ? 'PUT' : 'POST',
-      url: isEditing ? `/products/${productId}`: '/products',
+      url: isEditing ? `/products/${productId}` : '/products',
       data,
       withCredentials: true,
     };
@@ -89,6 +94,11 @@ const Form = () => {
                 <div className="invalid-feedback d-block">
                   {errors.name?.message}
                 </div>
+
+                <div className="margin-buttom-30"></div>
+
+                <Select options={options} 
+                classNamePrefix="product-crud-select"/>
               </div>
               <div className="margin-buttom-30">
                 <input
