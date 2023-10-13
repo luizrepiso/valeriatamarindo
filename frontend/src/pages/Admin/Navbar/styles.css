@@ -39,7 +39,7 @@ ul {
 }
 
 @media (min-width: 1200px) {
-  ul {
+  .admin-nav-items-container {
     justify-content: unset;
     flex-direction: column;
     
