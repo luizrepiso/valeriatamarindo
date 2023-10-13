@@ -34,7 +34,7 @@ const ProductCrudCard = ({ product, onDelete }: Props) => {
         <img
           className="image-container"
           src={product.imgUrl}
-          alt={product.name}
+          alt=""
         />
       </div>
       <div className="product-crud-card-description">
