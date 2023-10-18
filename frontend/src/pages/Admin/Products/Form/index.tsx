@@ -35,7 +35,7 @@ const Form = () => {
 
   useEffect(() => {
     requestBackend({
-      url: 'categories',
+      url: '/categories',
     }).then((response) => {
       setSelectCategories(response.data.content);
     });
@@ -158,7 +158,7 @@ const Form = () => {
                   })}
                   type="text"
                   className={`form-control base-input ${
-                    errors.imgUrl ? 'is-invalid' : ''
+                    errors.name ? 'is-invalid' : ''
                   }`}
                   placeholder="URL da imagem do produto"
                   name="imgUrl"
@@ -177,7 +177,7 @@ const Form = () => {
                     required: 'Campo Obrigatório',
                   })}
                   className={`form-control base-input h-auto ${
-                    errors.description ? 'is-invalid' : ''
+                    errors.name ? 'is-invalid' : ''
                   }`}
                   placeholder="Descrição"
                   name="description"

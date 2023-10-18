@@ -57,7 +57,7 @@ const ProductCrudCard = ({ product, onDelete }: Props) => {
         </button>
         <Link to={`/admin/products/${product.id}`}>
           <button className="btn btn-outline-secondary product-crud-button">
-            {' '}
+           
             EDITAR
           </button>
         </Link>

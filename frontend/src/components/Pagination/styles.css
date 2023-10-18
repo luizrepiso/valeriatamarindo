@@ -26,6 +26,7 @@
 
 .arrow-previous {
     transform: rotate(-180deg);
+    color:  #961417
 }
 .arrow-next {
     margin-left: 10px;
@@ -33,11 +34,15 @@
 }
 
 .arrow-inactive {
-  color:  #961417;
+  color:  #e1e1e1;
  
 }
 
 .arrow-active {
-    color: #407bff;
+    color: #961417;
 
+}
+.pagination-arrow-container {
+  display: flex;
+  align-items: center;
 }
