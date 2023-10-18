@@ -12,11 +12,7 @@
   font-weight: bold;
   margin-bottom: 20px;
 }
-.product-filter-container {
-  padding: 15px;
-  margin-bottom: 20px;
-  color: #961417;
-}
+
 
 @media (min-width: 768px) {
   .product-crud-bar-container {
@@ -27,10 +23,5 @@
     height: 60px;
     margin: 0;
   }
-  .product-filter-container {
-    margin-right: 0px;
-    margin-left: 20px;
-    flex:1;
-    margin-bottom: 0;
-  }
+  
 }
