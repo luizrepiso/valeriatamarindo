@@ -9,16 +9,32 @@ import { requestBackend } from 'util/requests';
 
 type ProductFilterData = {
   name: string;
-  category: Category;
+  category: Category | null;
 };
 
 const ProductFilter = () => {
   const [selectCategories, setSelectCategories] = useState<Category[]>([]);
 
-  const { register, handleSubmit, control } = useForm<ProductFilterData>();
+  const { register, handleSubmit, setValue, getValues, control } =
+    useForm<ProductFilterData>();
 
   const onSubmit = (formData: ProductFilterData) => {
     console.log('ENVIOU', formData);
+  };
+
+  const handleFormClear = () => {
+    setValue('name', '');
+    setValue('category', null);
+  };
+
+  const hadleChangeCategory = (value: Category) => {
+    setValue('category', value);
+
+    const obj = {
+      name: getValues('name'),
+      category: getValues('category'),
+    };
+    console.log('ENVIOU', obj);
   };
 
   useEffect(() => {
@@ -56,13 +72,19 @@ const ProductFilter = () => {
                   isClearable
                   placeholder="Categoria"
                   classNamePrefix="product-filter-select"
+                  onChange={(value) => hadleChangeCategory(value as Category)}
                   getOptionLabel={(category: Category) => category.name}
                   getOptionValue={(category: Category) => String(category.id)}
                 />
               )}
             />
           </div>
-          <button className="btn btn-outline-secondary btn-product-filter-clear">LIMPAR</button>
+          <button
+            onClick={handleFormClear}
+            className="btn btn-outline-secondary btn-product-filter-clear"
+          >
+            LIMPAR
+          </button>
         </div>
       </form>
     </div>
