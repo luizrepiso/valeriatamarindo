@@ -8,6 +8,7 @@ import { AuthContext } from 'AuthContext';
 import './styles.css';
 import { saveAuthData } from 'util/storage';
 import { getTokenData } from 'util/auth';
+import { Product } from 'types/product';
 
 type CredentialsDTO = {
   username: string;

@@ -5,10 +5,11 @@ import { AxiosRequestConfig } from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
-
-import './styles.css';
 import { Category } from 'types/category';
 import CurrencyInput from 'react-currency-input-field';
+import { toast } from 'react-toastify';
+
+import './styles.css';
 
 type UrlParams = {
   productId: string;
@@ -69,11 +70,16 @@ const Form = () => {
     };
 
     requestBackend(config).then(() => {
+      toast.info('Produto cadastrado com sucesso');
       history.push('/admin/products');
+    })
+    .catch(() => {
+      toast.error('Erro ao cadastrar o produto');
     });
   };
 
   const handleCancel = () => {
+    
     history.push('/admin/products');
   };
 

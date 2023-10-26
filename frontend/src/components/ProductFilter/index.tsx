@@ -3,23 +3,27 @@ import { Category } from 'types/category';
 import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
 import { useEffect, useState } from 'react';
-
-import './style.css';
 import { requestBackend } from 'util/requests';
 
-type ProductFilterData = {
+import './style.css';
+
+export type ProductFilterData = {
   name: string;
   category: Category | null;
 };
 
-const ProductFilter = () => {
+type Props = {
+  onSubmitFilter: (data: ProductFilterData) => void;
+};
+
+const ProductFilter = ({ onSubmitFilter }: Props) => {
   const [selectCategories, setSelectCategories] = useState<Category[]>([]);
 
   const { register, handleSubmit, setValue, getValues, control } =
     useForm<ProductFilterData>();
 
   const onSubmit = (formData: ProductFilterData) => {
-    console.log('ENVIOU', formData);
+    onSubmitFilter(formData);
   };
 
   const handleFormClear = () => {
@@ -27,14 +31,14 @@ const ProductFilter = () => {
     setValue('category', null);
   };
 
-  const hadleChangeCategory = (value: Category) => {
+  const handleChangeCategory = (value: Category) => {
     setValue('category', value);
 
-    const obj = {
+    const obj : ProductFilterData = {
       name: getValues('name'),
       category: getValues('category'),
     };
-    console.log('ENVIOU', obj);
+    onSubmitFilter(obj);
   };
 
   useEffect(() => {
@@ -72,7 +76,7 @@ const ProductFilter = () => {
                   isClearable
                   placeholder="Categoria"
                   classNamePrefix="product-filter-select"
-                  onChange={(value) => hadleChangeCategory(value as Category)}
+                  onChange={(value) => handleChangeCategory(value as Category)}
                   getOptionLabel={(category: Category) => category.name}
                   getOptionValue={(category: Category) => String(category.id)}
                 />
