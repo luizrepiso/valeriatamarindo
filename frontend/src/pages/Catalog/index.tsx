@@ -20,7 +20,7 @@ const Catalog = () => {
       baseURL: BASE_URL,
       params: {
         page: pageNumber,
-        size: 12,
+        size: 4,
       },
     };
 
