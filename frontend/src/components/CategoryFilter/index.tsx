@@ -7,34 +7,34 @@ import { requestBackend } from 'util/requests';
 
 import './style.css';
 
-export type ProductFilterData = {
+export type CategoryFilterData = {
   name: string;
   category: Category | null;
 };
 
 type Props = {
-  onSubmitFilter: (data: ProductFilterData) => void;
+  onSubmitFilter: (data: CategoryFilterData) => void;
 };
 
-const ProductFilter = ({ onSubmitFilter }: Props) => {
+const CategoryFilter = ({ onSubmitFilter }: Props) => {
   const [selectCategories, setSelectCategories] = useState<Category[]>([]);
 
   const { register, handleSubmit, setValue, getValues, control } =
-    useForm<ProductFilterData>();
+    useForm<CategoryFilterData>();
 
-  const onSubmit = (formData: ProductFilterData) => {
+  const onSubmit = (formData: CategoryFilterData) => {
     onSubmitFilter(formData);
   };
 
   const handleFormClear = () => {
     setValue('name', '');
-    setValue('category', null);
+    
   };
 
   const handleChangeCategory = (value: Category) => {
     setValue('category', value);
 
-    const obj : ProductFilterData = {
+    const obj : CategoryFilterData = {
       name: getValues('name'),
       category: getValues('category'),
     };
@@ -50,9 +50,9 @@ const ProductFilter = ({ onSubmitFilter }: Props) => {
   }, []);
 
   return (
-    <div className="base-card product-filter-container">
-      <form onSubmit={handleSubmit(onSubmit)} className="product-filter-form">
-        <div className="product-filter-name-container">
+    <div className="base-card category-filter-container">
+      <form onSubmit={handleSubmit(onSubmit)} className="category-filter-form">
+        <div className="category-filter-name-container">
           <input
             {...register('name')}
             type="text"
@@ -60,12 +60,12 @@ const ProductFilter = ({ onSubmitFilter }: Props) => {
             placeholder="Nome do produto"
             name="name"
           />
-          <button className="product-filter-search-icon">
+          <button className="category-filter-search-icon">
             <SearchIcon />
           </button>
         </div>
-        <div className="product-filter-bottom-container">
-          <div className="product-filter-category-container">
+        <div className="category-filter-bottom-container">
+          <div className="category-filter-category-container">
             <Controller
               name="category"
               control={control}
@@ -75,7 +75,7 @@ const ProductFilter = ({ onSubmitFilter }: Props) => {
                   options={selectCategories}
                   isClearable
                   placeholder="Categoria"
-                  classNamePrefix="product-filter-select"
+                  classNamePrefix="category-filter-select"
                   onChange={(value) => handleChangeCategory(value as Category)}
                   getOptionLabel={(category: Category) => category.name}
                   getOptionValue={(category: Category) => String(category.id)}
@@ -85,7 +85,7 @@ const ProductFilter = ({ onSubmitFilter }: Props) => {
           </div>
           <button
             onClick={handleFormClear}
-            className="btn btn-outline-secondary btn-product-filter-clear"
+            className="btn btn-outline-secondary btn-category-filter-clear"
           >
             LIMPAR
           </button>
@@ -94,4 +94,4 @@ const ProductFilter = ({ onSubmitFilter }: Props) => {
     </div>
   );
 };
-export default ProductFilter;
+export default CategoryFilter;

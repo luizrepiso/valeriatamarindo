@@ -1,7 +1,7 @@
 import './styles.css';
 import ProductPrice from 'components/ProductPrice';
 import { Product } from 'types/product';
-import CategoryBadge from '../CategoryBadge';
+import CategoryBadge from '../../pages/Admin/Products/CategoryBadge';
 import { Link } from 'react-router-dom';
 import { AxiosRequestConfig } from 'axios';
 import { requestBackend } from 'util/requests';

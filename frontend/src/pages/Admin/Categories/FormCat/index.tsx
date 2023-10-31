@@ -1,26 +1,23 @@
-import { useForm, Controller } from 'react-hook-form';
-import { Product } from 'types/product';
+import { useForm } from 'react-hook-form';
+import { Category } from 'types/category';
 import { requestBackend } from 'util/requests';
 import { AxiosRequestConfig } from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Select from 'react-select';
-import { Category } from 'types/category';
-import CurrencyInput from 'react-currency-input-field';
 import { toast } from 'react-toastify';
 
 import './styles.css';
 
 type UrlParams = {
-  productId: string;
+  categoryId: string;
 };
 
 const Form = () => {
   const options = [];
 
-  const { productId } = useParams<UrlParams>();
+  const { categoryId } = useParams<UrlParams>();
 
-  const isEditing = productId !== 'create';
+  const isEditing = categoryId !== 'create';
 
   const history = useHistory();
 
@@ -32,7 +29,7 @@ const Form = () => {
     formState: { errors },
     setValue,
     control,
-  } = useForm<Product>();
+  } = useForm<Category>();
 
   useEffect(() => {
     requestBackend({
@@ -44,54 +41,49 @@ const Form = () => {
 
   useEffect(() => {
     if (isEditing) {
-      requestBackend({ url: `/products/${productId}` }).then((response) => {
-        const product = response.data as Product;
+      requestBackend({ url: `/categories/${categoryId}` }).then((response) => {
+        const category = response.data as Category;
 
-        setValue('name', product.name);
-        setValue('price', product.price);
-        setValue('description', product.description);
-        setValue('imgUrl', product.imgUrl);
-        setValue('categories', product.categories);
+        setValue('name', category.name);
       });
     }
-  }, [isEditing, productId, setValue]);
+  }, [isEditing, categoryId, setValue]);
 
-  const onSubmit = (formData: Product) => {
+  const onSubmit = (formData: Category) => {
     const data = {
       ...formData,
-      price: String(formData.price).replace(',', '.'),
     };
 
     const config: AxiosRequestConfig = {
       method: isEditing ? 'PUT' : 'POST',
-      url: isEditing ? `/products/${productId}` : '/products',
+      url: isEditing ? `/categories/${categoryId}` : '/categories',
       data,
       withCredentials: true,
     };
 
     requestBackend(config)
       .then(() => {
-        toast.info('Produto cadastrado com sucesso');
-        history.push('/admin/products');
+        toast.info('Categoria cadastrada com sucesso');
+        history.push('/admin/categories');
       })
       .catch(() => {
-        toast.error('Erro ao cadastrar o produto');
+        toast.error('Erro ao cadastrar a categoria');
       });
   };
 
   const handleCancel = () => {
-    history.push('/admin/products');
+    history.push('/admin/categories');
   };
 
   return (
-    <div className="product-crud-container">
-      <div className="base-card product-crud-form-card">
-        <h1 className="product-crud-form-title">DADOS DO PRODUTO</h1>
+    <div className="category-crud-container">
+      <div className="base-card category-crud-form-card">
+        <h1 className="category-crud-form-title">DADOS DO PRODUTO</h1>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="row product-crud-inputs-container">
-            <div className="col-lg-6 product-crud-inputs-left-container">
-              <div className="margin-buttom-30">
+          <div className="row category-crud-inputs-container">
+            <div className="col-lg-6 category-crud-inputs-left-container">
+              <div className="category-margin-buttom-30">
                 <input
                   {...register('name', {
                     required: 'Campo Obrigatório',
@@ -100,108 +92,23 @@ const Form = () => {
                   className={`form-control base-input ${
                     errors.name ? 'is-invalid' : ''
                   }`}
-                  placeholder="Nome do produto"
+                  placeholder="Nome da categoria"
                   name="name"
                 />
                 <div className="invalid-feedback d-block">
                   {errors.name?.message}
                 </div>
               </div>
-              <div className="margin-buttom-30">
-                <Controller
-                  name="categories"
-                  rules={{ required: true }}
-                  control={control}
-                  render={({ field }) => (
-                    <Select
-                      {...field}
-                      options={selectCategories}
-                      classNamePrefix="product-crud-select"
-                      isMulti
-                      getOptionLabel={(category: Category) => category.name}
-                      getOptionValue={(category: Category) =>
-                        String(category.id)
-                      }
-                    />
-                  )}
-                />
-                {errors.categories && (
-                  <div className="invalid-feedback d-block">
-                    Campo Obrigatório
-                  </div>
-                )}
-              </div>
-
-              <div className="margin-buttom-30">
-                <Controller
-                  name="price"
-                  rules={{ required: 'Campo Obrigatório' }}
-                  control={control}
-                  render={({ field }) => (
-                    <CurrencyInput
-                      placeholder="Preço"
-                      className={`form-control base-input ${
-                        errors.name ? 'is-invalid' : ''
-                      }`}
-                      disableGroupSeparators={true}
-                      value={field.value}
-                      onValueChange={field.onChange}
-                    />
-                  )}
-                />
-                <div className="invalid-feedback d-block">
-                  {errors.price?.message}
-                </div>
-              </div>
-              <div className="margin-buttom-30">
-                <input
-                  {...register('imgUrl', {
-                    required: 'Campo Obrigatório',
-                    pattern: {
-                      value: /^(https?|chrome):\/\/[^\s$.?#].[^\s]*$/gm,
-                      message: 'Deve ser uma URL válida',
-                    },
-                  })}
-                  type="text"
-                  className={`form-control base-input ${
-                    errors.name ? 'is-invalid' : ''
-                  }`}
-                  placeholder="URL da imagem do produto"
-                  name="imgUrl"
-                />
-                <div className="invalid-feedback d-block">
-                  {errors.imgUrl?.message}
-                </div>
-              </div>
-            </div>
-
-            <div className="col-lg-6">
-              <div>
-                <textarea
-                  rows={10}
-                  {...register('description', {
-                    required: 'Campo Obrigatório',
-                  })}
-                  className={`form-control base-input h-auto ${
-                    errors.name ? 'is-invalid' : ''
-                  }`}
-                  placeholder="Descrição"
-                  name="description"
-                />
-                <div className="invalid-feedback d-block">
-                  {errors.description?.message}
-                </div>
-              </div>
             </div>
           </div>
-          <div className="product-crud-buttons-container">
+          <div className="category-crud-buttons-container">
             <button
-              className=" btn btn-outline-danger form-crud-button"
+              className=" btn btn-outline-danger category-form-crud-button"
               onClick={handleCancel}
             >
               CANCELAR
             </button>
-            <button className=" btn btn-danger text-#961417  form-crud-button">
+            <button className=" btn btn-danger text-#961417  category-form-crud-button">
               SALVAR
             </button>
           </div>

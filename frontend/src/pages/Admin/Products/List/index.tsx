@@ -1,4 +1,4 @@
-import ProductCrudCard from 'pages/Admin/Products/ProductCrudCard';
+import ProductCrudCard from 'components/ProductCrudCard';
 import { Link } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import { SpringPage } from 'types/vendor/spring';
