@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import valeriatamarindo.loja.dto.CategoryDTO;
 import valeriatamarindo.loja.entities.Category;
+import valeriatamarindo.loja.entities.Product;
 import valeriatamarindo.loja.repositories.CategoryRepository;
 import valeriatamarindo.loja.services.exceptions.DatabaseException;
 import valeriatamarindo.loja.services.exceptions.ResourceNotFoundException;
@@ -26,9 +26,9 @@ public class CategoryService {
 	private CategoryRepository repository;
 
 	@Transactional(readOnly = true)
-	public Page<CategoryDTO> findAllPaged(Pageable pageable) {
-		Page<Category> list = repository.findAll(pageable);
-		return list.map(CategoryDTO::new);
+	public Page<CategoryDTO> findAllPaged(String name, Pageable pageable) {
+		Page<Category> page = repository.find(name, pageable);
+		return page.map(CategoryDTO::new);
 
 	}
 

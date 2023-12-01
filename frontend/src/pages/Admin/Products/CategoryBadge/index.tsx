@@ -1,7 +1,7 @@
 import './styles.css';
 
 type Props = {
-    name: string;
+    name: String;
 };
 
 const CategoryBadge = ({name} : Props) => {

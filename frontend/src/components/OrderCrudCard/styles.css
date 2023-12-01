@@ -1,0 +1,79 @@
+.order-crud-card {
+    display: flex;
+   
+   
+    
+   }
+   
+   .order-crud-card-buttom-container {
+     padding: 5px 20px 5px 20px;
+   }
+   
+   .order-crud-card-buttom-container h6 {
+     font-size: 14px;
+     color: rgba(38, 50, 56, 1);
+   }
+   
+   .order-crud-card-buttons-container { 
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    margin:0;
+     
+   }
+   .order-crud-button {
+     width: 70px;
+     height: 20px;
+     font-size: 14px;
+     padding: 4px;
+   }
+   
+   .order-crud-button-first { 
+     width: 70px;
+     height: 20px;
+     font-size: 14px;
+     padding: 4px;
+   }
+   
+   @media (min-width: 768px) {
+     .order-crud-card {
+       display: flex;
+       justify-content: space-between;
+       padding-bottom: 0px;
+     }
+   
+     .order-crud-card-top-container {
+       border-bottom: 0;
+       width: 200px;
+       border-bottom: 1px solid #e1e1e1;
+     }
+   
+     .order-crud-card-buttons-container {
+       flex-direction: column-reverse;
+       justify-content: center;
+     }
+     .order-crud-button-first {
+       margin-right: 0px;
+       margin-top: 22px;
+     }
+     .order-crud-button {
+       width: 95px;
+     }
+     .order-crud-card-button {
+       width: 140px;
+     }
+     .order-crud-card-description {
+       display: flex;
+       flex: 1;
+       flex-direction: column;
+       justify-content: center;
+     }
+   }
+   @media (min-width: 992px) {
+     .order-crud-card-buttons-container {
+       width: 220px;
+     }
+     .order-crud-button {
+       width: 180px;
+     }
+   }
+   

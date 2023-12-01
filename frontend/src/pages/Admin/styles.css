@@ -2,6 +2,7 @@
 .admin-container {
   display: flex;
   flex-direction: column;
+  
 }
 .admin-content {
   padding: 20px;

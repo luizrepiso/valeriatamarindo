@@ -1,12 +1,18 @@
 package valeriatamarindo.loja.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import valeriatamarindo.loja.entities.Category;
+import valeriatamarindo.loja.entities.Product;
+import valeriatamarindo.loja.entities.Role;
 import valeriatamarindo.loja.entities.User;
 
 public class UserDTO implements Serializable {
@@ -16,31 +22,35 @@ public class UserDTO implements Serializable {
 	
 	@Size(min = 5, max = 60, message = "Deve ter entre 5 e 60 caracteres")
 	@NotBlank(message = "campo obrigatório")
-	private String firstName;
-	private String lastName;
+	private String name;
 	private String email;
 
-	Set<RoleDTO> roles = new HashSet<>();
+	@NotEmpty(message= "Usuário sem função não é permitido")
+	private List<RoleDTO> roles = new ArrayList<>();
 
 	public UserDTO() {
 
 	}
 
-	public UserDTO(Long id, String firstName, String lastName, String email) {
+	public UserDTO(Long id, String name, String email) {
 		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.name = name;
+
 		this.email = email;
 
 	}
 
 	public UserDTO(User entity) {
 		id = entity.getId();
-		firstName = entity.getFirstName();
-		lastName = entity.getLastName();
+		name = entity.getName();
 		email = entity.getEmail();
-		entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
 
+
+	}
+
+	public UserDTO(User entity, Set<Role> roles) {
+		this(entity);
+		roles.forEach(role -> this.roles.add(new RoleDTO(role)));
 	}
 
 	public Long getId() {
@@ -51,32 +61,23 @@ public class UserDTO implements Serializable {
 		this.id = id;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Set<RoleDTO> getRoles() {
+	public List<RoleDTO> getRoles() {
 		return roles;
 	}
 
+	public void setRoles(List<RoleDTO> roles) {
+		this.roles = roles;
+	}
 }

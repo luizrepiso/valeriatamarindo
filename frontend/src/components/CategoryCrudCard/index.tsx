@@ -28,10 +28,9 @@ const CategoryCrudCard = ({ category, onDelete }: Props) => {
 
   return (
     <div className="base-card category-crud-card">
-      <div className="product-crud-card-buttom-container">
-          <h6>{category.name}</h6>
-          </div>
-          
+      <div className="category-crud-card-buttom-container">
+        <h6>{category.name}</h6>
+      </div>
       <div className="category-crud-card-buttons-container">
         <button
           onClick={() => handleDelete(category.id)}
@@ -40,7 +39,7 @@ const CategoryCrudCard = ({ category, onDelete }: Props) => {
           EXCLUIR
         </button>
         <Link to={`/admin/categories/${category.id}`}>
-          <button className="btn btn-outline-secondary category-crud-button">           
+          <button className="btn btn-outline-secondary category-crud-button">
             EDITAR
           </button>
         </Link>

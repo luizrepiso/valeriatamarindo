@@ -1,13 +1,11 @@
 package valeriatamarindo.loja.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "role")
@@ -19,6 +17,8 @@ public class Role implements Serializable {
 	private Long id;
 	private String authority;
 
+	@ManyToMany(mappedBy = "roles")
+	private Set<User> users = new HashSet<>();
 	public Role() {
 
 	}
@@ -42,6 +42,11 @@ public class Role implements Serializable {
 
 	public void setAuthority(String authority) {
 		this.authority = authority;
+	}
+
+
+	public Set<User> getUsers() {
+		return users;
 	}
 
 	@Override

@@ -1,15 +1,15 @@
 import { Route, Switch } from 'react-router-dom';
-import List from './List';
-import Form from './Form';
+import ProductList from './ProductList';
+import ProductForm from './ProductForm';
 
 const products = () => {
   return (
     <Switch>
       <Route path="/admin/products" exact>
-        <List />
+        <ProductList />
       </Route>
       <Route path="/admin/products/:productId" exact>
-        <Form />
+        <ProductForm />
       </Route>
     </Switch>
   );

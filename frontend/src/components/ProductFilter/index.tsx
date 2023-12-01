@@ -5,7 +5,7 @@ import Select from 'react-select';
 import { useEffect, useState } from 'react';
 import { requestBackend } from 'util/requests';
 
-import './style.css';
+import './styles.css';
 
 export type ProductFilterData = {
   name: string;
@@ -65,7 +65,7 @@ const ProductFilter = ({ onSubmitFilter }: Props) => {
           </button>
         </div>
         <div className="product-filter-bottom-container">
-          <div className="product-filter-category-container">
+        <div className="product-filter-category-container">
             <Controller
               name="category"
               control={control}
@@ -74,8 +74,8 @@ const ProductFilter = ({ onSubmitFilter }: Props) => {
                   {...field}
                   options={selectCategories}
                   isClearable
-                  placeholder="Categoria"
-                  classNamePrefix="product-filter-select"
+                  placeholder="Category"
+                  classNamePrefix="user-filter-select"
                   onChange={(value) => handleChangeCategory(value as Category)}
                   getOptionLabel={(category: Category) => category.name}
                   getOptionValue={(category: Category) => String(category.id)}

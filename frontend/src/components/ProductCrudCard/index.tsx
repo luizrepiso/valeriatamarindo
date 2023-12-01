@@ -1,4 +1,4 @@
-import './styles.css';
+
 import ProductPrice from 'components/ProductPrice';
 import { Product } from 'types/product';
 import CategoryBadge from '../../pages/Admin/Products/CategoryBadge';

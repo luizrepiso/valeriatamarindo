@@ -23,6 +23,7 @@ public class RoleDTO implements Serializable {
 		id = entity.getId();
 		authority = entity.getAuthority();
 	}
+
 	public Long getId() {
 		return id;
 	}
@@ -38,5 +39,6 @@ public class RoleDTO implements Serializable {
 	public void setAuthority(String authority) {
 		this.authority = authority;
 	}
+
 
 }

@@ -26,7 +26,8 @@ public class CategoryDTO implements Serializable {
 		
 	}
 
-	public Long getId() {
+
+    public Long getId() {
 		return id;
 	}
 

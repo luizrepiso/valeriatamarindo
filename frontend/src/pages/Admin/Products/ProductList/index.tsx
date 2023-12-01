@@ -1,22 +1,22 @@
-import CategoryCrudCard from 'components/CategoryCrudCard';
+import ProductCrudCard from 'components/ProductCrudCard';
 import { Link } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import { SpringPage } from 'types/vendor/spring';
-import { Category } from 'types/category';
+import { Product } from 'types/product';
 import { AxiosRequestConfig } from 'axios';
 import { requestBackend } from 'util/requests';
 import Pagination from 'components/Pagination';
-import CategoryFilter, { CategoryFilterData } from 'components/CategoryFilter';
+import ProductFilter, { ProductFilterData } from 'components/ProductFilter';
 
 import './styles.css';
 
 type ControlComponentsData = {
   activePage: number;
-  filterData: CategoryFilterData;
+  filterData: ProductFilterData;
 };
 
-const ListCat = () => {
-  const [page, setPage] = useState<SpringPage<Category>>();
+const ProductList = () => {
+  const [page, setPage] = useState<SpringPage<Product>>();
 
   const [controlComponentsData, setControlComponentsData] =
     useState<ControlComponentsData>({
@@ -31,20 +31,20 @@ const ListCat = () => {
     });
   };
 
-  const handleSubmitFilter = (data: CategoryFilterData) => {
+  const handleSubmitFilter = (data: ProductFilterData) => {
     setControlComponentsData({
       activePage: 0,
       filterData: data,
     });
   };
 
-  const getCategories = useCallback(() => {
+  const getProducts = useCallback(() => {
     const config: AxiosRequestConfig = {
       method: 'GET',
-      url: '/categories',
+      url: '/products',
       params: {
         page: controlComponentsData.activePage,
-        size: 12,
+        size: 3,
         name: controlComponentsData.filterData.name,
         categoryId: controlComponentsData.filterData.category?.id
       },
@@ -55,24 +55,24 @@ const ListCat = () => {
   }, [controlComponentsData]);
 
   useEffect(() => {
-    getCategories();
-  }, [getCategories]);
+    getProducts();
+  }, [getProducts]);
 
   return (
-    <div className="category-crud-container">
-      <div className="category-crud-bar-container">
-        <Link to="/admin/categories/create">
-          <button className="btn btn-danger text-#961417 btn-category-crud-add">
+    <div className="product-crud-container">
+      <div className="product-crud-bar-container">
+        <Link to="/admin/products/create">
+          <button className="btn btn-danger text-#961417 btn-crud-add">
             ADICIONAR
           </button>
         </Link>
-        <CategoryFilter onSubmitFilter={handleSubmitFilter} />
+        <ProductFilter onSubmitFilter={handleSubmitFilter} />
       </div>
 
       <div className="row">
-        {page?.content.map((category) => (
-          <div key={category.id} className="col-sm-6 col-md-12">
-            <CategoryCrudCard category={category} onDelete={getCategories} />
+        {page?.content.map((product) => (
+          <div key={product.id} className="col-sm-6 col-md-12">
+            <ProductCrudCard product={product} onDelete={getProducts} />
           </div>
         ))}
       </div>
@@ -85,4 +85,4 @@ const ListCat = () => {
     </div>
   );
 };
-export default ListCat;
+export default ProductList;

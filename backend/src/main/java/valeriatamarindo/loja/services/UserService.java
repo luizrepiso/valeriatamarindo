@@ -18,10 +18,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import valeriatamarindo.loja.dto.RoleDTO;
-import valeriatamarindo.loja.dto.UserDTO;
-import valeriatamarindo.loja.dto.UserInsertDTO;
-import valeriatamarindo.loja.dto.UserUpdateDTO;
+import valeriatamarindo.loja.dto.*;
+import valeriatamarindo.loja.entities.Category;
+import valeriatamarindo.loja.entities.Product;
 import valeriatamarindo.loja.entities.Role;
 import valeriatamarindo.loja.entities.User;
 import valeriatamarindo.loja.repositories.RoleRepository;
@@ -44,9 +43,11 @@ public class UserService implements UserDetailsService {
 	private RoleRepository roleRepository;
 
 	@Transactional(readOnly = true)
-	public Page<UserDTO> findAllPaged(Pageable pageable) {
-		Page<User> list = repository.findAll(pageable);
-		return list.map(x -> new UserDTO(x));
+	public Page<UserDTO> findAllPaged(Long roleId,String name, Pageable pageable) {
+		Role role = (roleId == 0) ? null : roleRepository.getOne(roleId);
+		Page<User> page = repository.find(role,name, pageable);
+		repository.findUsersWithRoles(page.getContent());
+		return page.map(x -> new UserDTO(x, x.getRoles()));
 
 	}
 
@@ -92,8 +93,7 @@ public class UserService implements UserDetailsService {
 
 	private void copyDtoToEntity(UserDTO dto, User entity) {
 
-		entity.setFirstName(dto.getFirstName());
-		entity.setLastName(dto.getLastName());
+		entity.setName(dto.getName());
 		entity.setEmail(dto.getEmail());
 
 		entity.getRoles().clear();

@@ -4,8 +4,12 @@ import Users from './Users';
 import PrivateRoute from 'components/PrivateRoute';
 import Products from './Products';
 import Categories from './Categories';
+import Clients from './Clients';
+
 
 import './styles.css';
+import Orders from './Orders';
+
 
 
 const Admin = () => {
@@ -22,6 +26,12 @@ const Admin = () => {
           </PrivateRoute>
           <PrivateRoute path="/admin/users" roles={['ROLE_ADMIN']}>
             <Users />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/clients">
+            <Clients />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/orders">
+            <Orders />
           </PrivateRoute>
         </Switch>
       </div>

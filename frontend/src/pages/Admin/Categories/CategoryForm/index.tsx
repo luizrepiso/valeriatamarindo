@@ -12,10 +12,8 @@ type UrlParams = {
   categoryId: string;
 };
 
-const Form = () => {
-  const options = [];
-
-  const { categoryId } = useParams<UrlParams>();
+const CategoryForm = () => {
+    const { categoryId } = useParams<UrlParams>();
 
   const isEditing = categoryId !== 'create';
 
@@ -28,8 +26,7 @@ const Form = () => {
     handleSubmit,
     formState: { errors },
     setValue,
-    control,
-  } = useForm<Category>();
+    } = useForm<Category>();
 
   useEffect(() => {
     requestBackend({
@@ -61,6 +58,7 @@ const Form = () => {
       withCredentials: true,
     };
 
+    console.log(config);
     requestBackend(config)
       .then(() => {
         toast.info('Categoria cadastrada com sucesso');
@@ -77,8 +75,8 @@ const Form = () => {
 
   return (
     <div className="category-crud-container">
-      <div className="base-card category-crud-form-card">
-        <h1 className="category-crud-form-title">DADOS DO PRODUTO</h1>
+      <div className="category-crud-form-card">
+        <h1 className="category-crud-form-title">DADOS DA CATEGORIA</h1>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="row category-crud-inputs-container">
@@ -117,4 +115,4 @@ const Form = () => {
     </div>
   );
 };
-export default Form;
+export default CategoryForm;

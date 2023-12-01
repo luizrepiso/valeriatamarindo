@@ -2,20 +2,48 @@ import '@popperjs/core';
 import 'bootstrap/js/dist/collapse';
 import LogoImg from 'assets/images/logo.png';
 import { Link, NavLink } from 'react-router-dom';
-
+import history from 'util/history';
 import './styles.css';
+import { useContext, useEffect } from 'react';
+import { AuthContext } from 'AuthContext';
+import { getTokenData, isAuthenticated } from 'util/auth';
+import { removeAuthData } from 'util/storage';
 
 const Navbar = () => {
+  const { authContextData, setAuthContextData } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      setAuthContextData({
+        authenticated: true,
+        tokenData: getTokenData(),
+      });
+    } else {
+      setAuthContextData({
+        authenticated: false,
+      });
+    }
+  }, [setAuthContextData]);
+
+  const handleLogoutClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    removeAuthData();
+    setAuthContextData({
+      authenticated: false,
+    });
+    history.replace('/');
+  };
+
   return (
     <nav className="navbar navbar-expand-md bg-light main-nav">
-          <div className="image-container">
-          <img className="main-image" src={LogoImg} alt="Modelo" />
-        </div>
-        <div className="container-fluid">
-          <Link to="/" className="nav-logo-text">
-            <h6>Loja Valeria Tamarindo</h6>
-          </Link>
-       
+      <div className="image-container">
+        <img className="main-image" src={LogoImg} alt="Modelo" />
+      </div>
+      <div className="container-fluid">
+        <Link to="/" className="nav-logo-text">
+          <h6>Loja Valeria Tamarindo</h6>
+        </Link>
+
         <button
           className="navbar-toggler"
           type="button"
@@ -44,6 +72,15 @@ const Navbar = () => {
               <NavLink to="/admin" activeClassName="active">
                 ADMIN
               </NavLink>
+            </li>
+            <li className="nav-logout">
+              {authContextData.authenticated ? (
+                <a href="#logout" onClick={handleLogoutClick}>
+                  SAIR
+                </a>
+              ) : (
+                <Link to="/admin/auth">LOGIN</Link>
+              )}
             </li>
           </ul>
         </div>

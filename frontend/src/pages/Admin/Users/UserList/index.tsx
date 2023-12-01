@@ -1,27 +1,27 @@
-import ProductCrudCard from 'components/ProductCrudCard';
+import UserCrudCard from 'components/UserCrudCard';
 import { Link } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import { SpringPage } from 'types/vendor/spring';
-import { Product } from 'types/product';
+import { User } from 'types/user';
 import { AxiosRequestConfig } from 'axios';
 import { requestBackend } from 'util/requests';
 import Pagination from 'components/Pagination';
-import ProductFilter, { ProductFilterData } from 'components/ProductFilter';
+import UserFilter, { UserFilterData } from 'components/UserFilter';
 
 import './styles.css';
 
 type ControlComponentsData = {
   activePage: number;
-  filterData: ProductFilterData;
+  filterData: UserFilterData;
 };
 
-const List = () => {
-  const [page, setPage] = useState<SpringPage<Product>>();
+const UserList = () => {
+  const [page, setPage] = useState<SpringPage<User>>();
 
   const [controlComponentsData, setControlComponentsData] =
     useState<ControlComponentsData>({
       activePage: 0,
-      filterData: { name: '', category: null },
+      filterData: { name: '', role: null },
     });
 
   const handlePageChange = (pageNumber: number) => {
@@ -31,22 +31,22 @@ const List = () => {
     });
   };
 
-  const handleSubmitFilter = (data: ProductFilterData) => {
+  const handleSubmitFilter = (data: UserFilterData) => {
     setControlComponentsData({
       activePage: 0,
       filterData: data,
     });
   };
 
-  const getProducts = useCallback(() => {
+  const getUsers = useCallback(() => {
     const config: AxiosRequestConfig = {
       method: 'GET',
-      url: '/products',
+      url: '/users',
+      withCredentials: true,
       params: {
         page: controlComponentsData.activePage,
         size: 3,
-        name: controlComponentsData.filterData.name,
-        categoryId: controlComponentsData.filterData.category?.id
+        name: controlComponentsData.filterData.name,     
       },
     };
     requestBackend(config).then((response) => {
@@ -55,24 +55,24 @@ const List = () => {
   }, [controlComponentsData]);
 
   useEffect(() => {
-    getProducts();
-  }, [getProducts]);
+    getUsers();
+  }, [getUsers]);
 
-  return (
-    <div className="product-crud-container">
-      <div className="product-crud-bar-container">
-        <Link to="/admin/products/create">
+  return (  
+
+    <div className="user-crud-container">      
+      <div className="user-crud-bar-container">
+        <Link to="/admin/users/create">
           <button className="btn btn-danger text-#961417 btn-crud-add">
             ADICIONAR
           </button>
         </Link>
-        <ProductFilter onSubmitFilter={handleSubmitFilter} />
+        <UserFilter onSubmitFilter={handleSubmitFilter} />
       </div>
-
       <div className="row">
-        {page?.content.map((product) => (
-          <div key={product.id} className="col-sm-6 col-md-12">
-            <ProductCrudCard product={product} onDelete={getProducts} />
+        {page?.content.map((user) => (
+          <div key={user.id} className="col-sm-6 col-md-12">
+            <UserCrudCard user={user} onDelete={getUsers} />
           </div>
         ))}
       </div>
@@ -83,6 +83,8 @@ const List = () => {
         onChange={handlePageChange}
       />
     </div>
+   
+    
   );
 };
-export default List;
+export default UserList;

@@ -30,8 +30,7 @@ public class Order implements Serializable {
 
 	private Instant date;	
 	private Double totalOrder;
-	
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private OrderStatus orderStatus;
@@ -39,6 +38,8 @@ public class Order implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private Client clientId;
+
+
 
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItem;

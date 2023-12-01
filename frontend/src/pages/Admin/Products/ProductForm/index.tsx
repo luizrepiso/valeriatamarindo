@@ -15,7 +15,8 @@ type UrlParams = {
   productId: string;
 };
 
-const Form = () => {
+const ProductForm = () => {
+
   const options = [];
 
   const { productId } = useParams<UrlParams>();
@@ -46,7 +47,7 @@ const Form = () => {
     if (isEditing) {
       requestBackend({ url: `/products/${productId}` }).then((response) => {
         const product = response.data as Product;
-
+        
         setValue('name', product.name);
         setValue('price', product.price);
         setValue('description', product.description);
@@ -210,4 +211,4 @@ const Form = () => {
     </div>
   );
 };
-export default Form;
+export default ProductForm;

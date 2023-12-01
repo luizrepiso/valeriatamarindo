@@ -1,15 +1,15 @@
 import { Route, Switch } from 'react-router-dom';
-import ListCat from './ListCat';
-import FormCat from './FormCat';
+import CategoryList from './CategoryList';
+import CategoryForm from './CategoryForm';
 
 const categories = () => {
   return (
     <Switch>
       <Route path="/admin/categories" exact>
-        <ListCat />
+        <CategoryList />
       </Route>
       <Route path="/admin/categories/:categoryId" exact>
-        <FormCat />
+        <CategoryForm />
       </Route>
     </Switch>
   );
