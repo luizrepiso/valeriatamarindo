@@ -4,7 +4,7 @@ export type Client = {
   id: number;
   name: string;
   cpf: string;
-  phone: number;
+  phone: string;
   email: string;
 
   addresses: Address[];

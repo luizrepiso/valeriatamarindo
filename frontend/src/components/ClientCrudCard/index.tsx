@@ -7,10 +7,10 @@ import './styles.css';
 
 type Props = {
   client: Client;
-  onDelete: Function;
+  // onDelete: Function;
 };
 
-const ClientCrudCard = ({ client, onDelete }: Props) => {
+const ClientCrudCard = ({ client }: Props) => {
   const handleDelete = (clientId: number) => {
     if (!window.confirm('Tem certeza que deseja deletar?')) {
       return;
@@ -23,7 +23,7 @@ const ClientCrudCard = ({ client, onDelete }: Props) => {
     };
 
     requestBackend(config).then(() => {
-      onDelete();
+      // onDelete();
     });
   };
 

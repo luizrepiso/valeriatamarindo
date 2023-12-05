@@ -1,9 +1,10 @@
-import './styles.css';
 import { User } from 'types/user';
 import { Link } from 'react-router-dom';
 import { AxiosRequestConfig } from 'axios';
 import { requestBackend } from 'util/requests';
 import RoleBadge from 'pages/Admin/Users/RoleBadge';
+
+import './styles.css';
 
 type Props = {
   user: User;
