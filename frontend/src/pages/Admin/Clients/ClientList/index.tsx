@@ -12,6 +12,10 @@ const ClientList = () => {
   const [page, setPage] = useState<SpringPage<Client>>();
 
   useEffect(() => {
+    getClients();
+  }, []);
+
+  const getClients = () => {
     const config: AxiosRequestConfig = {
       method: 'GET',
       url: '/clients',
@@ -25,7 +29,7 @@ const ClientList = () => {
     requestBackend(config).then((response) => {
       setPage(response.data);
     });
-  }, []);
+  };
 
   return (
     <div className="client-crud-container">
@@ -34,14 +38,14 @@ const ClientList = () => {
           <button className="btn btn-primary text-white">ADICIONAR</button>
         </Link>
         <div className="base-card client-filter-container">Search bar</div>
-        </div>
-          <div className="row">
-            {page?.content.map(client => (
-              <div key={client.id}>
-              <ClientCrudCard client={client} />
-              </div>
-            ))}        
-       </div>
+      </div>
+      <div className="row">
+        {page?.content.map((client) => (
+          <div key={client.id}>
+            <ClientCrudCard client={client} onDelete={()=> getClients()} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

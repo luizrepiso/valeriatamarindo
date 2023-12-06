@@ -2,25 +2,53 @@ import { useForm } from 'react-hook-form';
 import { Client } from 'types/client';
 import { requestBackend } from 'util/requests';
 import { AxiosRequestConfig } from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import './styles.css';
+import { useEffect } from 'react';
+
+type UrlParams = {
+  clientId: string;
+  addressesId: string;
+};
 
 const ClientForm = () => {
+  const { clientId, addressesId } = useParams<UrlParams>();
+
+  const isEditing = clientId !== 'create';
+
   const history = useHistory();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<Client>();
 
+  useEffect(() => {
+    if (isEditing) {
+      requestBackend({ url: `/clients/${clientId}` }).then((response) => {
+
+        const client = response.data as Client;
+
+                setValue('name', client.name);
+                setValue('cpf', client.cpf);
+                setValue('phone', client.phone);
+                setValue('email', client.email);                
+                setValue('addresses', client.addresses);
+
+      });
+    }
+  }, [isEditing, clientId, setValue]);
+
   const onSubmit = (formData: Client) => {
-    const data = { ...formData, addresses: [{ id: 18, street: '' }] };
+    const data = { ...formData,
+      addresses: isEditing ? formData.addresses :  [{ id: 18, street: '' }] };
 
     const config: AxiosRequestConfig = {
-      method: 'POST',
-      url: '/clients',
+      method: isEditing ? 'PUT' : 'POST',
+      url: isEditing ? `/clients/${clientId}` : '/clients', 
       data,
       withCredentials: true,
     };
@@ -75,6 +103,22 @@ const ClientForm = () => {
               </div>
               <div className="margin-bottom-30">
                 <input
+                  {...register('phone', {
+                    required: 'Campo Obrigatório',
+                  })}
+                  type="text"
+                  className={`form-control base-input ${
+                    errors.name ? 'is-invalid' : ''
+                  }`}
+                  placeholder="Telefone"
+                  name="phone"
+                />
+                <div className="invalid-feedback d-block">
+                  {errors.phone?.message}
+                </div>
+              </div>
+              <div className="margin-bottom-30">
+                <input
                   {...register('email', {
                     required: 'Campo Obrigatório',
                     pattern: {
@@ -93,23 +137,8 @@ const ClientForm = () => {
                   {errors.email?.message}
                 </div>
               </div>
-              <div className="margin-bottom-30">
-                <input
-                  {...register('phone', {
-                    required: 'Campo Obrigatório',
-                  })}
-                  type="text"
-                  className={`form-control base-input ${
-                    errors.name ? 'is-invalid' : ''
-                  }`}
-                  placeholder="Telefone"
-                  name="phone"
-                />
-                <div className="invalid-feedback d-block">
-                  {errors.phone?.message}
-                </div>
-              </div>
-              {/* <div className="margin-bottom-30">
+           
+               <div className="margin-bottom-30">
                 <input
                   {...register('addresses', {
                     required: 'Campo Obrigatório',
@@ -124,7 +153,7 @@ const ClientForm = () => {
                 <div className="invalid-feedback d-block">
                   {errors.addresses?.message}
                 </div>
-              </div> */}
+              </div>  
             </div>
           </div>
           <div className="client-crud-buttons-container">
